@@ -7,10 +7,8 @@ export default function Main() {
   const [url, setUrl] = useState('');
 
   return (
-    <div className="inner-box">
-      <div className="">
-        <UrlInput url={url} onChange={setUrl} />
-      </div>
+    <div className="inner-box space-y-[14px]">
+      <UrlInput url={url} onChange={setUrl} />
     </div>
   );
 }
