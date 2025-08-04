@@ -17,8 +17,7 @@ export default function ProcessCard({
 }: ProcessCardProps) {
   return (
     <div
-      className={`flex w-full items-center justify-between px-4 py-2 rounded-lg ${className}`}
-      style={{ backgroundColor: '#232323' }}
+      className={`process-card-glow flex w-full items-center justify-between px-4 py-2 ${className}`}
     >
       <div className="flex items-center gap-3">
         {icon}

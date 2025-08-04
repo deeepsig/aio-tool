@@ -140,3 +140,24 @@ body {
   border: none;
   cursor: not-allowed;
 }
+
+/* ========================================
+   PROCESS CARD COMPONENT
+======================================== */
+
+.process-card-glow {
+  background: #282828;
+  box-shadow:
+    0 0 4px rgba(0, 0, 0, 0.12),
+    inset 0 1px 0 rgba(255, 255, 255, 0.02);
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.process-card-glow:hover {
+  background: #2c2c2c;
+  box-shadow:
+    0 0 8px rgba(0, 0, 0, 0.18),
+    inset 0 1px 0 rgba(255, 255, 255, 0.06);
+}
