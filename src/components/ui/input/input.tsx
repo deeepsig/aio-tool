@@ -1,23 +1,27 @@
 import React from 'react';
 
 interface InputProps {
-  url: string;
+  value: string;
   onChange: (value: string) => void;
+  onBlur?: () => void;
   placeholder?: string;
   className?: string;
 }
 
 export default function Input({
-  url,
+  value,
   onChange,
+  onBlur,
   placeholder = 'https://reddit.com',
   className = '',
 }: InputProps) {
   return (
     <input
       type="url"
-      value={url}
+      pattern="https?://.*"
+      value={value}
       onChange={(e) => onChange(e.target.value)}
+      onBlur={onBlur}
       placeholder={placeholder}
       className={`input ${className}`}
     />
