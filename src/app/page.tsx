@@ -1,6 +1,6 @@
 // src/app/page.tsx
-import InfoPanel from '@/components/info-panel/info-panel';
-import Main from '@/components/main/main';
+import InfoPanel from '@/components/info/info-panel';
+import Main from '@/components/main-card/main';
 
 export default function Page() {
   return (

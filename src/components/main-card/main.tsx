@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import UrlInput from '../url-input/url-input';
+import UrlInput from '../url/url-input';
 
 export default function Main() {
   const [url, setUrl] = useState('');
