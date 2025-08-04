@@ -1,5 +1,9 @@
 @import 'tailwindcss';
 
+/* ========================================
+   CSS VARIABLES & THEME
+======================================== */
+
 :root {
   --background: #ffffff;
   --foreground: #0f0f0f;
@@ -12,6 +16,7 @@
   --font-mono: var(--font-geist-mono);
 }
 
+/* Dark mode theme variables */
 @media (prefers-color-scheme: dark) {
   :root {
     --background: #0a0a0a;
@@ -19,12 +24,21 @@
   }
 }
 
+/* ========================================
+   GLOBAL STYLES
+======================================== */
+
 body {
   background: var(--background);
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
 
+/* ========================================
+   CARD COMPONENTS
+======================================== */
+
+/* Main container card with ambient glow */
 .outer-box {
   background: #1a1a1a;
   border: 1px solid #282828;
@@ -38,6 +52,7 @@ body {
   border-radius: 16px;
 }
 
+/* Inner content card with subtle depth */
 .inner-box {
   background: #1f1f1f;
   border: 1px solid #252525;
@@ -50,6 +65,11 @@ body {
   border-radius: 14px;
 }
 
+/* ========================================
+   FORM ELEMENTS
+======================================== */
+
+/* Input field with focus states */
 .input {
   width: 100%;
   padding: 8px 16px;
@@ -75,4 +95,48 @@ body {
 
 .input::placeholder {
   color: #444444;
+}
+
+/* ========================================
+   BUTTON COMPONENTS
+======================================== */
+
+/* Primary button - Toned down green */
+.button-primary {
+  background: #16a085;
+  color: #ffffff;
+  border: 1px solid #148f77;
+  cursor: pointer;
+  box-shadow:
+    0 1px 3px rgba(22, 160, 133, 0.15),
+    0 0 6px rgba(22, 160, 133, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.08);
+}
+
+.button-primary:hover:not(:disabled) {
+  background: #17b897;
+}
+
+.button-primary:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+/* Secondary button - No bg/border by default */
+.button-secondary {
+  background: transparent;
+  color: #ededed;
+  border: none;
+  cursor: pointer;
+}
+
+.button-secondary:hover:not(:disabled) {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.button-secondary:disabled {
+  background: transparent;
+  color: #555555;
+  border: none;
+  cursor: not-allowed;
 }
