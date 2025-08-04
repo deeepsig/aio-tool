@@ -16,7 +16,7 @@ export default function UrlInput({
 }: UrlInputProps) {
   return (
     <div className={`space-y-2 ${className}`}>
-      <h3 className="font-semibold text-base px-1 text-[#D9D9D9]">Endpoint</h3>
+      <h3 className="font-semibold text-base text-[#D9D9D9]">Endpoint</h3>
       <Input url={url} onChange={onChange} placeholder={placeholder} />
     </div>
   );
