@@ -1,9 +1,17 @@
-export default function Home() {
+// src/app/page.tsx
+import InfoPanel from '@/components/info/info-panel';
+import Main from '@/components/main-card/main';
+
+export default function Page() {
   return (
-    <div className="font-sans grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start font-mono">
-        Everything is luck, but still...work hard.
-      </main>
+    <div className="min-h-screen flex items-center justify-center bg-[var(--background)] font-sans">
+      <div className="outer-box space-y-[14px]">
+        <h2 className="px-2 text-base text-[#D9D9D9] font-semibold">
+          Analyze AOI
+        </h2>
+        <Main />
+        <InfoPanel />
+      </div>
     </div>
   );
 }

@@ -1,0 +1,78 @@
+@import 'tailwindcss';
+
+:root {
+  --background: #ffffff;
+  --foreground: #0f0f0f;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.outer-box {
+  background: #1a1a1a;
+  border: 1px solid #282828;
+  box-shadow:
+    0px 4px 8px rgba(0, 0, 0, 0.25),
+    0 0 16px rgba(0, 0, 0, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.03);
+  width: 498px;
+  margin: 0 auto;
+  padding: 14px 16px;
+  border-radius: 16px;
+}
+
+.inner-box {
+  background: #1f1f1f;
+  border: 1px solid #252525;
+  box-shadow:
+    1px 1px 2px rgba(0, 0, 0, 0.1),
+    -1px -1px 2px rgba(0, 0, 0, 0.1),
+    0 0 8px rgba(0, 0, 0, 0.15);
+  width: 100%;
+  padding: 14px 16px;
+  border-radius: 14px;
+}
+
+.input {
+  width: 100%;
+  padding: 8px 16px;
+  background: #171717;
+  border: 1px solid #242424;
+  border-radius: 8px;
+  font-size: 16px;
+  color: #444444;
+  box-shadow:
+    0 1px 3px rgba(0, 0, 0, 0.12),
+    0 0 4px rgba(0, 0, 0, 0.08);
+  transition: all 0.2s ease;
+}
+
+.input:focus {
+  outline: none;
+  border-color: #666666;
+  box-shadow:
+    0 1px 3px rgba(0, 0, 0, 0.12),
+    0 0 6px rgba(0, 0, 0, 0.1),
+    0 0 0 2px rgba(102, 102, 102, 0.3);
+}
+
+.input::placeholder {
+  color: #444444;
+}
