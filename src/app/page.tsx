@@ -1,4 +1,5 @@
 // src/app/page.tsx
+import InfoPanel from '@/components/info-panel/info-panel';
 import Main from '@/components/main/main';
 
 export default function Page() {
@@ -7,6 +8,7 @@ export default function Page() {
       <div className="outer-box space-y-3">
         <h2 className="ml-2 text-base">Analyze AOI</h2>
         <Main />
+        <InfoPanel />
       </div>
     </div>
   );

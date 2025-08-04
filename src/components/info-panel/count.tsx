@@ -1,0 +1,24 @@
+import React from 'react';
+import IconGraph from '../ui/icons/icon-graph';
+
+interface CountProps {
+  text?: string;
+  count?: number;
+  className?: string;
+}
+
+export default function Count({
+  text = 'Total Sites Analyzed',
+  count = 35958,
+  className = '',
+}: CountProps) {
+  return (
+    <div className={`flex items-center gap-2 text-base ${className}`}>
+      <IconGraph width={20} height={20} fill="#696969" />
+      <span className="text-[#696969] font-medium">{text}</span>
+      <data value={count} className="text-[#D9D9D9] font-bold">
+        {count.toLocaleString()}
+      </data>
+    </div>
+  );
+}
