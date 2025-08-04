@@ -12,7 +12,7 @@ interface MenuButtonProps {
 export default function MenuButton({
   onClick,
   disabled = false,
-  className = 'cursor-pointer hover:opacity-80',
+  className = '',
   iconSize = 24,
   iconFill = '#D9D9D9',
 }: MenuButtonProps) {
@@ -20,10 +20,15 @@ export default function MenuButton({
     <button
       onClick={onClick}
       disabled={disabled}
-      className={`${className}`}
+      className={`cursor-pointer hover:opacity-80 transition-all duration-50 hover:bg-[#222222] rounded hover:p-1 hover:-m-1 group ${className}`}
       type="button"
     >
-      <IconMenu width={iconSize} height={iconSize} fill={iconFill} />
+      <IconMenu
+        width={iconSize}
+        height={iconSize}
+        fill={iconFill}
+        className="group-hover:fill-white"
+      />
     </button>
   );
 }
