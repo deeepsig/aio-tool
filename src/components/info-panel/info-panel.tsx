@@ -16,7 +16,9 @@ export default function InfoPanel({
   className = '',
 }: InfoPanelProps) {
   return (
-    <div className={`flex items-center justify-between w-full ${className}`}>
+    <div
+      className={`flex items-center justify-between w-full px-2 ${className}`}
+    >
       <Count text={text} count={count} />
       <MenuButton onClick={onMenuClick} />
     </div>

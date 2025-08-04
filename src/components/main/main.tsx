@@ -1,10 +1,15 @@
-// src/components/main/main.tsx
+'use client';
+
+import React, { useState } from 'react';
+import UrlInput from '../url-input/url-input';
+
 export default function Main() {
+  const [url, setUrl] = useState('');
+
   return (
     <div className="inner-box">
-      {/* Your UrlInput, ProcessesPanel, RecommendationCard… */}
-      <div className="text-center text-sm text-gray-400">
-        {/* Inner content goes here… */}
+      <div className="">
+        <UrlInput url={url} onChange={setUrl} />
       </div>
     </div>
   );
