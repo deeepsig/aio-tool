@@ -2,7 +2,7 @@
 export interface ProcessStep {
   id: string;
   title: string;
-  status: 'idle' | 'analyzing' | 'processing' | 'completed' | 'error';
+  status: 'fetching' | 'analyzing' | 'completed' | 'error';
   content?: string;
   error?: string;
   defaultExpanded?: boolean;

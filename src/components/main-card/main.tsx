@@ -12,8 +12,13 @@ export default function Main() {
   const [url, setUrl] = useState('');
   const [touched, setTouched] = useState(false);
   const [isAnalyzing, setIsAnalyzing] = useState(false);
-  const { steps, updateStep, resetSteps, updateFromRobotsResult } =
-    useProcessSteps();
+  const {
+    steps,
+    updateStep,
+    resetSteps,
+    startFetchStep,
+    updateFromRobotsResult,
+  } = useProcessSteps();
 
   const valid = isValidUrl(url);
   const errorMessage =
@@ -33,26 +38,17 @@ export default function Main() {
 
     setIsAnalyzing(true);
 
-    // Start first step - fetching robots.txt
-    updateStep('fetch-robots', {
-      status: 'analyzing',
-      content: 'Requesting robots.txt file from the specified domain...',
-    });
+    // Start the first step
+    startFetchStep();
 
     try {
       // Use your existing fetchRobotsTxt function
       const result: RobotsTxtResult = await fetchRobotsTxt(url);
 
-      // Update first step based on result
+      // Update first step and potentially add second step based on result
       updateFromRobotsResult(result);
 
       if (result.success) {
-        // Start analysis step
-        updateStep('analyze-robots', {
-          status: 'analyzing',
-          content: 'Analyzing robots.txt for bot restrictions...',
-        });
-
         // Simulate analysis delay (remove this in production)
         await new Promise((resolve) => setTimeout(resolve, 1000));
 

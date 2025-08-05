@@ -12,10 +12,8 @@ export default function ProcessPanel({
   steps,
   className = '',
 }: ProcessPanelProps) {
-  // Only show panel if at least one step has started
-  const hasStarted = steps.some((step) => step.status !== 'idle');
-
-  if (!hasStarted) {
+  // Only show panel if there are steps to display
+  if (steps.length === 0) {
     return null;
   }
 

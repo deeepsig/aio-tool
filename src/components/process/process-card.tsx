@@ -29,6 +29,18 @@ export default function ProcessCard({
     }
   }, [step.status]);
 
+  // Get fallback content based on status
+  const getFallbackContent = () => {
+    switch (step.status) {
+      case 'fetching':
+        return 'Fetching...';
+      case 'analyzing':
+        return 'Analyzing...';
+      default:
+        return 'deeeps needs moneyy..and friends';
+    }
+  };
+
   return (
     <div className={`process-card-glow w-full ${className}`}>
       <div
@@ -56,9 +68,7 @@ export default function ProcessCard({
 
       <CollapsibleContent
         isExpanded={isExpanded}
-        content={
-          step.content || (step.status === 'processing' ? 'Processing...' : '')
-        }
+        content={step.content || getFallbackContent()}
         error={step.error}
       />
     </div>

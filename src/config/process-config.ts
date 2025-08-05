@@ -20,21 +20,15 @@ export const PROCESS_STEPS: Record<
 };
 
 export const STATUS_CONFIG = {
-  idle: {
-    icon: IconCheck,
-    label: 'Idle',
-    badge: { bg: '#2A2A2A', text: '#696969' },
-    iconColor: '#696969',
+  fetching: {
+    icon: IconSpinner,
+    label: 'Fetching',
+    badge: { bg: '#2A3441', text: '#60A5FA' },
+    iconColor: '#60A5FA',
   },
   analyzing: {
     icon: IconSpinner,
     label: 'Analyzing',
-    badge: { bg: '#2A3441', text: '#60A5FA' },
-    iconColor: '#60A5FA',
-  },
-  processing: {
-    icon: IconSpinner,
-    label: 'Processing',
     badge: { bg: '#2A3441', text: '#60A5FA' },
     iconColor: '#60A5FA',
   },

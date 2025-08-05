@@ -5,10 +5,8 @@ import { PROCESS_STEPS } from '@/config/process-config';
 import { RobotsTxtResult } from '@/utils/robots';
 
 export function useProcessSteps() {
-  const [steps, setSteps] = useState<ProcessStep[]>([
-    { ...PROCESS_STEPS.FETCH_ROBOTS, status: 'idle' },
-    { ...PROCESS_STEPS.ANALYZE_ROBOTS, status: 'idle' },
-  ]);
+  // Start with only the first step
+  const [steps, setSteps] = useState<ProcessStep[]>([]);
 
   const updateStep = useCallback(
     (stepId: string, updates: Partial<ProcessStep>) => {
@@ -21,11 +19,16 @@ export function useProcessSteps() {
     []
   );
 
+  const addStep = useCallback((stepConfig: ProcessStep) => {
+    setSteps((prev) => [...prev, stepConfig]);
+  }, []);
+
   const resetSteps = useCallback(() => {
-    setSteps([
-      { ...PROCESS_STEPS.FETCH_ROBOTS, status: 'idle' },
-      { ...PROCESS_STEPS.ANALYZE_ROBOTS, status: 'idle' },
-    ]);
+    setSteps([]);
+  }, []);
+
+  const startFetchStep = useCallback(() => {
+    setSteps([{ ...PROCESS_STEPS.FETCH_ROBOTS, status: 'fetching' }]);
   }, []);
 
   const updateFromRobotsResult = useCallback(
@@ -35,6 +38,8 @@ export function useProcessSteps() {
           status: 'completed',
           content: result.content || 'No content available',
         });
+        // Add the analysis step only after successful fetch
+        addStep({ ...PROCESS_STEPS.ANALYZE_ROBOTS, status: 'analyzing' });
       } else {
         updateStep('fetch-robots', {
           status: 'error',
@@ -42,8 +47,14 @@ export function useProcessSteps() {
         });
       }
     },
-    [updateStep]
+    [updateStep, addStep]
   );
 
-  return { steps, updateStep, resetSteps, updateFromRobotsResult };
+  return {
+    steps,
+    updateStep,
+    resetSteps,
+    startFetchStep,
+    updateFromRobotsResult,
+  };
 }
