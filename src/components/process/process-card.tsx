@@ -1,3 +1,4 @@
+// src/components/process/process-card.tsx
 import React, { useState } from 'react';
 import { ProcessStep } from '@/types/process';
 import { STATUS_CONFIG } from '@/config/process-config';
@@ -42,13 +43,15 @@ export default function ProcessCard({
   };
 
   return (
-    <div className={`process-card-glow w-full ${className}`}>
+    <div
+      className={`process-card-glow w-full ${isExpanded ? 'process-card-expanded' : 'process-card-collapsed'} ${className}`}
+    >
       <div
-        className="flex w-full items-center justify-between px-4 py-2 cursor-pointer"
+        className="process-card-header flex w-full items-center justify-between px-4 py-2"
         onClick={toggleExpanded}
       >
         <div className="flex items-center gap-3">
-          <IconComponent className="w-5 h-5" fill={statusConfig.iconColor} />
+          <IconComponent className="w-4 h-4" fill={statusConfig.iconColor} />
           <span className="text-[#D9D9D9] text-sm font-medium">
             {step.title}
           </span>
@@ -65,11 +68,12 @@ export default function ProcessCard({
           </button>
         </div>
       </div>
-
       <CollapsibleContent
         isExpanded={isExpanded}
         content={step.content || getFallbackContent()}
         error={step.error}
+        stepId={step.id}
+        analysisResult={step.analysisResult}
       />
     </div>
   );

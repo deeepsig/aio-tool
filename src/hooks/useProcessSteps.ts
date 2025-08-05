@@ -3,9 +3,9 @@ import { useState, useCallback } from 'react';
 import { ProcessStep } from '@/types/process';
 import { PROCESS_STEPS } from '@/config/process-config';
 import { RobotsTxtResult } from '@/utils/robots';
+import { AnalysisResult, analyzeRobotsTxt } from '@/utils/process-helpers';
 
 export function useProcessSteps() {
-  // Start with only the first step
   const [steps, setSteps] = useState<ProcessStep[]>([]);
 
   const updateStep = useCallback(
@@ -38,8 +38,19 @@ export function useProcessSteps() {
           status: 'completed',
           content: result.content || 'No content available',
         });
-        // Add the analysis step only after successful fetch
+
+        // Add the analysis step
         addStep({ ...PROCESS_STEPS.ANALYZE_ROBOTS, status: 'analyzing' });
+
+        // Perform analysis with a small delay for better UX
+        setTimeout(() => {
+          const analysis: AnalysisResult = analyzeRobotsTxt(result);
+          updateStep('analyze-robots', {
+            status: 'completed',
+            content: `Analysis completed: ${analysis.blockedBots.length} of ${analysis.totalBots} AI bots blocked`,
+            analysisResult: analysis, // Store the structured analysis result
+          });
+        }, 1000);
       } else {
         updateStep('fetch-robots', {
           status: 'error',

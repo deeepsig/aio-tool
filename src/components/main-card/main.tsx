@@ -6,24 +6,18 @@ import UrlInput from '../url/url-input';
 import { isValidUrl } from '@/utils/validation';
 import { fetchRobotsTxt, RobotsTxtResult } from '@/utils/robots';
 import { useProcessSteps } from '@/hooks/useProcessSteps';
-import { analyzeRobotsTxt } from '@/utils/process-helpers';
 
 export default function Main() {
   const [url, setUrl] = useState('');
   const [touched, setTouched] = useState(false);
   const [isAnalyzing, setIsAnalyzing] = useState(false);
-  const {
-    steps,
-    updateStep,
-    resetSteps,
-    startFetchStep,
-    updateFromRobotsResult,
-  } = useProcessSteps();
+  const { steps, resetSteps, startFetchStep, updateFromRobotsResult } =
+    useProcessSteps();
 
   const valid = isValidUrl(url);
   const errorMessage =
     touched && !valid
-      ? 'Please enter a valid URL (e.g. https://reddit.com).'
+      ? 'Please enter a valid URL (e.g. https://tryprofound.com).'
       : undefined;
 
   const handleCancel = () => {
@@ -45,23 +39,12 @@ export default function Main() {
       // Use the fetchRobotsTxt function
       const result: RobotsTxtResult = await fetchRobotsTxt(url);
 
-      // Update first step and potentially add second step based on result
+      // The hook will handle both updating the fetch step and running the analysis
       updateFromRobotsResult(result);
-
-      if (result.success) {
-        // Complete analysis using the parser
-        const analysis = analyzeRobotsTxt(result);
-        updateStep('analyze-robots', {
-          status: 'completed',
-          content: analysis,
-        });
-      }
     } catch (error) {
       console.error('Failed to fetch robots.txt:', error);
-      updateStep('fetch-robots', {
-        status: 'error',
-        error: 'Unexpected error occurred',
-      });
+      // Handle unexpected errors here if needed
+      // The updateFromRobotsResult already handles fetch errors
     } finally {
       setIsAnalyzing(false);
     }

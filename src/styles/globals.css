@@ -3,7 +3,6 @@
 /* ========================================
    CSS VARIABLES & THEME
 ======================================== */
-
 :root {
   --background: #ffffff;
   --foreground: #0f0f0f;
@@ -27,7 +26,6 @@
 /* ========================================
    GLOBAL STYLES & SCROLLBARS
 ======================================== */
-
 body {
   background: var(--background);
   color: var(--foreground);
@@ -66,7 +64,6 @@ body {
 /* ========================================
    CARD COMPONENTS
 ======================================== */
-
 /* Main container card with ambient glow */
 .outer-box {
   background: #1a1a1a;
@@ -97,7 +94,6 @@ body {
 /* ========================================
    FORM ELEMENTS
 ======================================== */
-
 /* Input field with focus states */
 .input {
   width: 100%;
@@ -129,7 +125,6 @@ body {
 /* ========================================
    BUTTON COMPONENTS
 ======================================== */
-
 /* Primary button - Toned down green */
 .button-primary {
   background: #16a085;
@@ -173,22 +168,35 @@ body {
 /* ========================================
    PROCESS CARD COMPONENT
 ======================================== */
-
+/* Main process card container - no hover effects */
 .process-card-glow {
   background: #282828;
   box-shadow:
     0 0 4px rgba(0, 0, 0, 0.12),
     inset 0 1px 0 rgba(255, 255, 255, 0.02);
   border-radius: 8px;
-  cursor: pointer;
-  transition: all 0.2s ease;
+  /* Remove cursor and transition from main container */
 }
 
-.process-card-glow:hover {
-  background: #2c2c2c;
-  box-shadow:
-    0 0 8px rgba(0, 0, 0, 0.18),
-    inset 0 1px 0 rgba(255, 255, 255, 0.06);
+/* Clickable header area - only this should highlight */
+.process-card-header {
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border-radius: 8px 8px 0 0; /* Round only top corners */
+}
+
+.process-card-header:hover {
+  background: rgba(255, 255, 255, 0.03);
+}
+
+/* When expanded, adjust border radius for header */
+.process-card-expanded .process-card-header {
+  border-radius: 8px 8px 0 0;
+}
+
+/* When collapsed, header should have full border radius */
+.process-card-collapsed .process-card-header {
+  border-radius: 8px;
 }
 
 .content-display {
@@ -206,4 +214,74 @@ body {
   /* Firefox scrollbar styling */
   scrollbar-width: thin;
   scrollbar-color: #404040 transparent;
+}
+
+/* ========================================
+   ROBOTS.TXT DISPLAY COMPONENT
+======================================== */
+.robots-txt-display {
+  padding: 12px 16px;
+  background: #171717;
+  border: 1px solid #242424;
+  max-height: 200px;
+  border-radius: 8px;
+  box-shadow:
+    0 1px 3px rgba(0, 0, 0, 0.12),
+    0 0 4px rgba(0, 0, 0, 0.08);
+  /* Firefox scrollbar styling */
+  scrollbar-width: thin;
+  scrollbar-color: #404040 transparent;
+}
+
+/* Robots.txt specific scrollbar styling */
+.robots-txt-display::-webkit-scrollbar {
+  width: 6px;
+}
+
+.robots-txt-display::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.robots-txt-display::-webkit-scrollbar-thumb {
+  background-color: #404040;
+  border-radius: 9999px;
+}
+
+.robots-txt-display::-webkit-scrollbar-thumb:hover {
+  background-color: #505050;
+}
+
+/* ========================================
+   AI BOT ANALYSIS DISPLAY COMPONENT
+======================================== */
+.ai-bot-analysis-display {
+  padding: 12px 16px;
+  background: #171717;
+  border: 1px solid #242424;
+  max-height: 200px;
+  border-radius: 8px;
+  box-shadow:
+    0 1px 3px rgba(0, 0, 0, 0.12),
+    0 0 4px rgba(0, 0, 0, 0.08);
+  /* Firefox scrollbar styling */
+  scrollbar-width: thin;
+  scrollbar-color: #404040 transparent;
+}
+
+/* AI bot analysis specific scrollbar styling */
+.ai-bot-analysis-display::-webkit-scrollbar {
+  width: 6px;
+}
+
+.ai-bot-analysis-display::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.ai-bot-analysis-display::-webkit-scrollbar-thumb {
+  background-color: #404040;
+  border-radius: 9999px;
+}
+
+.ai-bot-analysis-display::-webkit-scrollbar-thumb:hover {
+  background-color: #505050;
 }
