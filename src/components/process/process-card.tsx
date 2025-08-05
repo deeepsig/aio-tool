@@ -1,3 +1,4 @@
+// src/components/process/process-card.tsx
 import React, { useState } from 'react';
 import { ProcessStep } from '@/types/process';
 import { STATUS_CONFIG } from '@/config/process-config';
@@ -65,11 +66,11 @@ export default function ProcessCard({
           </button>
         </div>
       </div>
-
       <CollapsibleContent
         isExpanded={isExpanded}
         content={step.content || getFallbackContent()}
         error={step.error}
+        stepId={step.id} // Pass the step ID
       />
     </div>
   );

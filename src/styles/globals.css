@@ -3,7 +3,6 @@
 /* ========================================
    CSS VARIABLES & THEME
 ======================================== */
-
 :root {
   --background: #ffffff;
   --foreground: #0f0f0f;
@@ -27,7 +26,6 @@
 /* ========================================
    GLOBAL STYLES & SCROLLBARS
 ======================================== */
-
 body {
   background: var(--background);
   color: var(--foreground);
@@ -66,7 +64,6 @@ body {
 /* ========================================
    CARD COMPONENTS
 ======================================== */
-
 /* Main container card with ambient glow */
 .outer-box {
   background: #1a1a1a;
@@ -97,7 +94,6 @@ body {
 /* ========================================
    FORM ELEMENTS
 ======================================== */
-
 /* Input field with focus states */
 .input {
   width: 100%;
@@ -129,7 +125,6 @@ body {
 /* ========================================
    BUTTON COMPONENTS
 ======================================== */
-
 /* Primary button - Toned down green */
 .button-primary {
   background: #16a085;
@@ -173,7 +168,6 @@ body {
 /* ========================================
    PROCESS CARD COMPONENT
 ======================================== */
-
 .process-card-glow {
   background: #282828;
   box-shadow:
@@ -206,4 +200,39 @@ body {
   /* Firefox scrollbar styling */
   scrollbar-width: thin;
   scrollbar-color: #404040 transparent;
+}
+
+/* ========================================
+   ROBOTS.TXT DISPLAY COMPONENT
+======================================== */
+.robots-txt-display {
+  padding: 12px 16px;
+  background: #171717;
+  border: 1px solid #242424;
+  max-height: 200px;
+  border-radius: 8px;
+  box-shadow:
+    0 1px 3px rgba(0, 0, 0, 0.12),
+    0 0 4px rgba(0, 0, 0, 0.08);
+  /* Firefox scrollbar styling */
+  scrollbar-width: thin;
+  scrollbar-color: #404040 transparent;
+}
+
+/* Robots.txt specific scrollbar styling */
+.robots-txt-display::-webkit-scrollbar {
+  width: 6px;
+}
+
+.robots-txt-display::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.robots-txt-display::-webkit-scrollbar-thumb {
+  background-color: #404040;
+  border-radius: 9999px;
+}
+
+.robots-txt-display::-webkit-scrollbar-thumb:hover {
+  background-color: #505050;
 }
