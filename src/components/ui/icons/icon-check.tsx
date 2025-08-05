@@ -1,18 +1,12 @@
 import React from 'react';
-
-interface IconCheckProps {
-  width?: number;
-  height?: number;
-  fill?: string;
-  className?: string;
-}
+import { IconProps } from '@/types/icons';
 
 export default function IconCheck({
   width = 32,
   height = 32,
   fill = '#000000',
   className = '',
-}: IconCheckProps) {
+}: IconProps) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"

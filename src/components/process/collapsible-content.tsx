@@ -1,18 +1,21 @@
+// src/components/process/collapsible-content.tsx
 import React from 'react';
 
 interface CollapsibleContentProps {
   isExpanded: boolean;
   content: string;
-  title?: string;
+  error?: string;
   className?: string;
 }
 
 export default function CollapsibleContent({
   isExpanded,
   content,
-  title,
+  error,
   className = '',
 }: CollapsibleContentProps) {
+  const displayContent = error || content;
+
   return (
     <div
       className={`overflow-hidden transition-all duration-300 ease-in-out ${
@@ -20,13 +23,14 @@ export default function CollapsibleContent({
       } ${className}`}
     >
       <div
-        className="px-4 pb-4 pt-2 space-y-2"
+        className="px-4 pb-4 pt-2"
         style={{ borderTop: '1px solid #222222' }}
       >
-        {title && (
-          <h4 className="font-regular text-sm text-[#D9D9D9]">{title}</h4>
-        )}
-        <div className="content-display text-xs font-mono">{content}</div>
+        <div
+          className={`content-display text-xs font-mono ${error ? 'text-red-400' : ''}`}
+        >
+          {displayContent}
+        </div>
       </div>
     </div>
   );

@@ -1,7 +1,9 @@
 import React from 'react';
+import { ProcessStatus } from '@/types/process';
+import { STATUS_CONFIG } from '@/config/process-config';
 
 interface StatusBadgeProps {
-  status: 'processing' | 'completed' | 'error';
+  status: ProcessStatus;
   className?: string;
 }
 
@@ -9,42 +11,17 @@ export default function StatusBadge({
   status,
   className = '',
 }: StatusBadgeProps) {
-  const baseClasses =
-    'inline-flex items-center px-3 py-1 rounded-full text-xs font-medium';
-
-  const variants = {
-    processing: {
-      bg: '#2A3441',
-      text: '#60A5FA',
-    },
-    completed: {
-      bg: '#293733',
-      text: '#01D7A1',
-    },
-    error: {
-      bg: '#3D2A2A',
-      text: '#F87171',
-    },
-  };
-
-  const statusLabels = {
-    processing: 'Processing',
-    completed: 'Completed',
-    error: 'Error',
-  };
-
-  const variant = variants[status];
-  const label = statusLabels[status];
+  const config = STATUS_CONFIG[status];
 
   return (
     <span
-      className={`${baseClasses} ${className}`}
+      className={`inline-flex items-center px-3 py-1 rounded-full text-xs font-medium ${className}`}
       style={{
-        backgroundColor: variant.bg,
-        color: variant.text,
+        backgroundColor: config.badge.bg,
+        color: config.badge.text,
       }}
     >
-      {label}
+      {config.label}
     </span>
   );
 }
