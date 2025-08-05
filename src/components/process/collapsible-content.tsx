@@ -1,6 +1,8 @@
 // src/components/process/collapsible-content.tsx
 import React from 'react';
 import RobotsTxtDisplay from './robots-txt-display';
+import AiBotAnalysisDisplay from './ai-bot-analysis-display';
+import { AnalysisResult } from '@/utils/process-helpers';
 
 interface CollapsibleContentProps {
   isExpanded: boolean;
@@ -8,6 +10,7 @@ interface CollapsibleContentProps {
   error?: string;
   stepId?: string; // Add stepId to identify the step type
   className?: string;
+  analysisResult?: AnalysisResult; // Add analysis result for AI bot analysis
 }
 
 export default function CollapsibleContent({
@@ -16,12 +19,17 @@ export default function CollapsibleContent({
   error,
   stepId,
   className = '',
+  analysisResult,
 }: CollapsibleContentProps) {
   const displayContent = error || content;
 
   // Check if this is the robots.txt fetch step and we have successful content
   const isRobotsTxtStep = stepId === 'fetch-robots';
   const shouldShowRobotsDisplay = isRobotsTxtStep && !error && content;
+
+  // Check if this is the AI bot analysis step and we have results
+  const isAnalysisStep = stepId === 'analyze-robots';
+  const shouldShowAnalysisDisplay = isAnalysisStep && !error && analysisResult;
 
   return (
     <div
@@ -35,6 +43,8 @@ export default function CollapsibleContent({
       >
         {shouldShowRobotsDisplay ? (
           <RobotsTxtDisplay content={content} />
+        ) : shouldShowAnalysisDisplay ? (
+          <AiBotAnalysisDisplay analysis={analysisResult} />
         ) : (
           <div
             className={`content-display text-xs font-mono ${error ? 'text-red-400' : ''}`}

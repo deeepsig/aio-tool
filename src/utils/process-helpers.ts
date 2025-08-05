@@ -2,6 +2,14 @@
 import { RobotsTxtResult, parseRobotsTxt } from '@/utils/robots';
 import { AI_BOTS } from '@/data/ai-bots';
 
+export interface AnalysisResult {
+  blockedBots: string[];
+  totalBots: number;
+  hasWildcardBlock: boolean;
+  isEmpty: boolean;
+  message?: string;
+}
+
 /**
  * Get all AI bots that match a given user agent string
  */
@@ -10,19 +18,34 @@ function getMatchingAIBots(userAgent: string): string[] {
   return AI_BOTS.filter((bot) => lowerUserAgent.includes(bot.toLowerCase()));
 }
 
-export function analyzeRobotsTxt(robotsResult: RobotsTxtResult): string {
+export function analyzeRobotsTxt(
+  robotsResult: RobotsTxtResult
+): AnalysisResult {
   if (!robotsResult.success || !robotsResult.content) {
-    return 'No robots.txt content to analyze';
+    return {
+      blockedBots: [],
+      totalBots: AI_BOTS.length,
+      hasWildcardBlock: false,
+      isEmpty: true,
+      message: 'No robots.txt content to analyze',
+    };
   }
 
   // Use your existing parser
   const parsed = parseRobotsTxt(robotsResult.content);
 
   if (parsed.userAgents.length === 0) {
-    return 'No user-agent rules found in robots.txt';
+    return {
+      blockedBots: [],
+      totalBots: AI_BOTS.length,
+      hasWildcardBlock: false,
+      isEmpty: true,
+      message: 'No user-agent rules found in robots.txt',
+    };
   }
 
   const blockedBots = new Set<string>();
+  let hasWildcardBlock = false;
 
   // Check each user-agent rule
   parsed.userAgents.forEach((ua) => {
@@ -37,6 +60,7 @@ export function analyzeRobotsTxt(robotsResult: RobotsTxtResult): string {
     if (userAgent === '*') {
       // Wildcard - only block if there's a root disallow
       if (hasSignificantBlocking) {
+        hasWildcardBlock = true;
         AI_BOTS.forEach((bot) => {
           // Check if this bot is specifically allowed elsewhere
           const isSpecificallyAllowed = parsed.userAgents.some(
@@ -45,7 +69,6 @@ export function analyzeRobotsTxt(robotsResult: RobotsTxtResult): string {
               otherUa.allows.length > 0 &&
               otherUa.disallows.length === 0
           );
-
           if (!isSpecificallyAllowed) {
             blockedBots.add(bot);
           }
@@ -67,14 +90,10 @@ export function analyzeRobotsTxt(robotsResult: RobotsTxtResult): string {
   // Convert to sorted array for consistent output
   const sortedBlockedBots = Array.from(blockedBots).sort();
 
-  if (sortedBlockedBots.length === 0) {
-    return 'No AI bots are specifically blocked by this robots.txt file.';
-  }
-
-  let result = `BLOCKED AI BOTS (${sortedBlockedBots.length}):\n\n`;
-  sortedBlockedBots.forEach((bot) => {
-    result += `• ${bot}\n`;
-  });
-
-  return result.trim();
+  return {
+    blockedBots: sortedBlockedBots,
+    totalBots: AI_BOTS.length,
+    hasWildcardBlock,
+    isEmpty: false,
+  };
 }

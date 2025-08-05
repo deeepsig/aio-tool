@@ -71,6 +71,7 @@ export default function ProcessCard({
         content={step.content || getFallbackContent()}
         error={step.error}
         stepId={step.id} // Pass the step ID
+        analysisResult={step.analysisResult} // Pass the analysis result
       />
     </div>
   );
