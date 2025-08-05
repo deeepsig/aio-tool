@@ -42,17 +42,14 @@ export default function Main() {
     startFetchStep();
 
     try {
-      // Use your existing fetchRobotsTxt function
+      // Use the fetchRobotsTxt function
       const result: RobotsTxtResult = await fetchRobotsTxt(url);
 
       // Update first step and potentially add second step based on result
       updateFromRobotsResult(result);
 
       if (result.success) {
-        // Simulate analysis delay (remove this in production)
-        await new Promise((resolve) => setTimeout(resolve, 1000));
-
-        // Complete analysis using your existing parser
+        // Complete analysis using the parser
         const analysis = analyzeRobotsTxt(result);
         updateStep('analyze-robots', {
           status: 'completed',
