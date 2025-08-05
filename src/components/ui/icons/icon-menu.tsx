@@ -1,18 +1,12 @@
 import React from 'react';
-
-interface IconMenuProps {
-  width?: number;
-  height?: number;
-  fill?: string;
-  className?: string;
-}
+import { IconProps } from '@/types/icons';
 
 export default function IconMenu({
   width = 32,
   height = 32,
   fill = '#D9D9D9',
   className = '',
-}: IconMenuProps) {
+}: IconProps) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"

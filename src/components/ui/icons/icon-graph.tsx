@@ -1,18 +1,12 @@
 import React from 'react';
-
-interface IconGraphProps {
-  width?: number;
-  height?: number;
-  fill?: string;
-  className?: string;
-}
+import { IconProps } from '@/types/icons';
 
 export default function IconGraph({
   width = 32,
   height = 32,
   fill = '#D9D9D9',
   className = '',
-}: IconGraphProps) {
+}: IconProps) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
