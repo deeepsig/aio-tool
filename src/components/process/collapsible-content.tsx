@@ -21,12 +21,12 @@ export default function CollapsibleContent({
     >
       <div
         className="px-4 pb-4 pt-2 space-y-2"
-        style={{ borderTop: '1px solid #171717' }}
+        style={{ borderTop: '1px solid #222222' }}
       >
         {title && (
           <h4 className="font-regular text-sm text-[#D9D9D9]">{title}</h4>
         )}
-        <div className="content-display text-sm font-mono">{content}</div>
+        <div className="content-display text-xs font-mono">{content}</div>
       </div>
     </div>
   );

@@ -21,7 +21,7 @@ export default function ProcessPanel({
         status: 'processing' as const,
         text: 'Fetching robots.txt...',
         content: 'Requesting robots.txt file from the specified domain...',
-        defaultExpanded: true,
+        defaultExpanded: false,
       };
     }
 
@@ -31,7 +31,7 @@ export default function ProcessPanel({
           status: 'completed' as const,
           text: 'Parsed robots.txt',
           content: robotsResult.content || 'No content available',
-          defaultExpanded: true,
+          defaultExpanded: false,
         };
       } else {
         return {
@@ -43,13 +43,12 @@ export default function ProcessPanel({
       }
     }
 
-    // Default state - no analysis started
+    // This should never happen since ProcessPanel only renders after analysis starts
     return {
-      status: 'completed' as const,
-      text: 'Ready to analyze',
-      content:
-        'Enter a URL above and click "Start Analysis" to begin fetching the robots.txt file.',
-      defaultExpanded: false,
+      status: 'processing' as const,
+      text: 'Starting analysis...',
+      content: 'Initializing...',
+      defaultExpanded: true,
     };
   };
 
@@ -64,11 +63,7 @@ export default function ProcessPanel({
         icon={<IconCheck className="w-5 h-5" fill="#01D7A1" />}
         content={processState.content}
         defaultExpanded={processState.defaultExpanded}
-        title={
-          robotsResult?.success
-            ? `Fetched from: ${robotsResult.url}`
-            : undefined
-        }
+        title={robotsResult?.success ? `Output` : undefined}
       />
     </div>
   );

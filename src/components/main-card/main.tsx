@@ -1,16 +1,17 @@
 'use client';
 
-import { isValidUrl } from '@/utils/validation';
-import { fetchRobotsTxt, RobotsTxtResult } from '@/utils/robots';
 import React, { useState, useCallback } from 'react';
 import ActionBar from '../action-bar/action-bar';
 import ProcessPanel from '../process/process-panel';
 import UrlInput from '../url/url-input';
+import { isValidUrl } from '@/utils/validation';
+import { fetchRobotsTxt, RobotsTxtResult } from '@/utils/robots';
 
 export default function Main() {
   const [url, setUrl] = useState('');
   const [touched, setTouched] = useState(false);
   const [isAnalyzing, setIsAnalyzing] = useState(false);
+  const [hasStartedAnalysis, setHasStartedAnalysis] = useState(false);
   const [robotsResult, setRobotsResult] = useState<RobotsTxtResult | null>(
     null
   );
@@ -25,6 +26,7 @@ export default function Main() {
     setUrl('');
     setTouched(false);
     setIsAnalyzing(false);
+    setHasStartedAnalysis(false);
     setRobotsResult(null);
   };
 
@@ -32,6 +34,7 @@ export default function Main() {
     if (!valid) return;
 
     setIsAnalyzing(true);
+    setHasStartedAnalysis(true);
     setRobotsResult(null);
 
     console.log('Starting analysis for:', url);
@@ -63,7 +66,9 @@ export default function Main() {
         error={errorMessage}
       />
 
-      <ProcessPanel isAnalyzing={isAnalyzing} robotsResult={robotsResult} />
+      {hasStartedAnalysis && (
+        <ProcessPanel isAnalyzing={isAnalyzing} robotsResult={robotsResult} />
+      )}
 
       <div className="flex justify-end">
         <ActionBar
