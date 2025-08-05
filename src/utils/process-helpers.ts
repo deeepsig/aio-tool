@@ -1,5 +1,14 @@
 // src/utils/process-helpers.ts
 import { RobotsTxtResult, parseRobotsTxt } from '@/utils/robots';
+import { AI_BOTS } from '@/data/ai-bots';
+
+/**
+ * Get all AI bots that match a given user agent string
+ */
+function getMatchingAIBots(userAgent: string): string[] {
+  const lowerUserAgent = userAgent.toLowerCase();
+  return AI_BOTS.filter((bot) => lowerUserAgent.includes(bot.toLowerCase()));
+}
 
 export function analyzeRobotsTxt(robotsResult: RobotsTxtResult): string {
   if (!robotsResult.success || !robotsResult.content) {
@@ -9,40 +18,63 @@ export function analyzeRobotsTxt(robotsResult: RobotsTxtResult): string {
   // Use your existing parser
   const parsed = parseRobotsTxt(robotsResult.content);
 
-  let analysis = '';
-
   if (parsed.userAgents.length === 0) {
-    analysis = 'No user-agent rules found in robots.txt';
-  } else {
-    analysis += 'BOT RESTRICTIONS:\n\n';
-
-    parsed.userAgents.forEach((ua) => {
-      analysis += `User-Agent: ${ua.userAgent}\n`;
-
-      if (ua.disallows.length > 0) {
-        analysis += '  Blocked paths:\n';
-        ua.disallows.forEach((path) => {
-          analysis += `    • ${path}\n`;
-        });
-      }
-
-      if (ua.allows.length > 0) {
-        analysis += '  Allowed paths:\n';
-        ua.allows.forEach((path) => {
-          analysis += `    • ${path}\n`;
-        });
-      }
-
-      analysis += '\n';
-    });
+    return 'No user-agent rules found in robots.txt';
   }
 
-  if (parsed.sitemaps.length > 0) {
-    analysis += 'SITEMAPS:\n';
-    parsed.sitemaps.forEach((sitemap) => {
-      analysis += `• ${sitemap}\n`;
-    });
+  const blockedBots = new Set<string>();
+
+  // Check each user-agent rule
+  parsed.userAgents.forEach((ua) => {
+    const userAgent = ua.userAgent.toLowerCase();
+
+    // Check if this user-agent has blocking rules that affect AI bots
+    const hasRootDisallow = ua.disallows.some(
+      (path) => path === '/' || path === ''
+    );
+    const hasSignificantBlocking = ua.disallows.length > 0 && hasRootDisallow;
+
+    if (userAgent === '*') {
+      // Wildcard - only block if there's a root disallow
+      if (hasSignificantBlocking) {
+        AI_BOTS.forEach((bot) => {
+          // Check if this bot is specifically allowed elsewhere
+          const isSpecificallyAllowed = parsed.userAgents.some(
+            (otherUa) =>
+              otherUa.userAgent.toLowerCase() === bot.toLowerCase() &&
+              otherUa.allows.length > 0 &&
+              otherUa.disallows.length === 0
+          );
+
+          if (!isSpecificallyAllowed) {
+            blockedBots.add(bot);
+          }
+        });
+      }
+    } else {
+      // Specific user-agent - check if it matches any AI bot and has blocking rules
+      const matchingBots = getMatchingAIBots(userAgent);
+      const exactMatch = AI_BOTS.find((bot) => userAgent === bot.toLowerCase());
+
+      if ((matchingBots.length > 0 || exactMatch) && ua.disallows.length > 0) {
+        // Add matching bots if they have any disallow rules
+        matchingBots.forEach((bot) => blockedBots.add(bot));
+        if (exactMatch) blockedBots.add(exactMatch);
+      }
+    }
+  });
+
+  // Convert to sorted array for consistent output
+  const sortedBlockedBots = Array.from(blockedBots).sort();
+
+  if (sortedBlockedBots.length === 0) {
+    return 'No AI bots are specifically blocked by this robots.txt file.';
   }
 
-  return analysis.trim();
+  let result = `BLOCKED AI BOTS (${sortedBlockedBots.length}):\n\n`;
+  sortedBlockedBots.forEach((bot) => {
+    result += `• ${bot}\n`;
+  });
+
+  return result.trim();
 }
