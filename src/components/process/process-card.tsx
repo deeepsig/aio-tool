@@ -51,7 +51,7 @@ export default function ProcessCard({
         onClick={toggleExpanded}
       >
         <div className="flex items-center gap-3">
-          <IconComponent className="w-5 h-5" fill={statusConfig.iconColor} />
+          <IconComponent className="w-4 h-4" fill={statusConfig.iconColor} />
           <span className="text-[#D9D9D9] text-sm font-medium">
             {step.title}
           </span>
