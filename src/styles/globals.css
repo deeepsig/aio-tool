@@ -168,21 +168,35 @@ body {
 /* ========================================
    PROCESS CARD COMPONENT
 ======================================== */
+/* Main process card container - no hover effects */
 .process-card-glow {
   background: #282828;
   box-shadow:
     0 0 4px rgba(0, 0, 0, 0.12),
     inset 0 1px 0 rgba(255, 255, 255, 0.02);
   border-radius: 8px;
-  cursor: pointer;
-  transition: all 0.2s ease;
+  /* Remove cursor and transition from main container */
 }
 
-.process-card-glow:hover {
-  background: #2c2c2c;
-  box-shadow:
-    0 0 8px rgba(0, 0, 0, 0.18),
-    inset 0 1px 0 rgba(255, 255, 255, 0.06);
+/* Clickable header area - only this should highlight */
+.process-card-header {
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border-radius: 8px 8px 0 0; /* Round only top corners */
+}
+
+.process-card-header:hover {
+  background: rgba(255, 255, 255, 0.03);
+}
+
+/* When expanded, adjust border radius for header */
+.process-card-expanded .process-card-header {
+  border-radius: 8px 8px 0 0;
+}
+
+/* When collapsed, header should have full border radius */
+.process-card-collapsed .process-card-header {
+  border-radius: 8px;
 }
 
 .content-display {

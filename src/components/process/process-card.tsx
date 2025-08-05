@@ -43,9 +43,11 @@ export default function ProcessCard({
   };
 
   return (
-    <div className={`process-card-glow w-full ${className}`}>
+    <div
+      className={`process-card-glow w-full ${isExpanded ? 'process-card-expanded' : 'process-card-collapsed'} ${className}`}
+    >
       <div
-        className="flex w-full items-center justify-between px-4 py-2 cursor-pointer"
+        className="process-card-header flex w-full items-center justify-between px-4 py-2"
         onClick={toggleExpanded}
       >
         <div className="flex items-center gap-3">
@@ -70,8 +72,8 @@ export default function ProcessCard({
         isExpanded={isExpanded}
         content={step.content || getFallbackContent()}
         error={step.error}
-        stepId={step.id} // Pass the step ID
-        analysisResult={step.analysisResult} // Pass the analysis result
+        stepId={step.id}
+        analysisResult={step.analysisResult}
       />
     </div>
   );
