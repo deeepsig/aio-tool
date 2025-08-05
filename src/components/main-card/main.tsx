@@ -1,6 +1,7 @@
 'use client';
 
 import { isValidUrl } from '@/utils/validation';
+import { fetchRobotsTxt, RobotsTxtResult } from '@/utils/robots';
 import React, { useState, useCallback } from 'react';
 import ActionBar from '../action-bar/action-bar';
 import ProcessPanel from '../process/process-panel';
@@ -9,6 +10,10 @@ import UrlInput from '../url/url-input';
 export default function Main() {
   const [url, setUrl] = useState('');
   const [touched, setTouched] = useState(false);
+  const [isAnalyzing, setIsAnalyzing] = useState(false);
+  const [robotsResult, setRobotsResult] = useState<RobotsTxtResult | null>(
+    null
+  );
 
   const valid = isValidUrl(url);
   const errorMessage =
@@ -19,10 +24,32 @@ export default function Main() {
   const handleCancel = () => {
     setUrl('');
     setTouched(false);
+    setIsAnalyzing(false);
+    setRobotsResult(null);
   };
 
-  const handleStartAnalysis = () => {
+  const handleStartAnalysis = async () => {
+    if (!valid) return;
+
+    setIsAnalyzing(true);
+    setRobotsResult(null);
+
     console.log('Starting analysis for:', url);
+
+    try {
+      const result = await fetchRobotsTxt(url);
+      setRobotsResult(result);
+      console.log('Robots.txt result:', result);
+    } catch (error) {
+      console.error('Failed to fetch robots.txt:', error);
+      setRobotsResult({
+        success: false,
+        error: 'Unexpected error occurred',
+        url: url,
+      });
+    } finally {
+      setIsAnalyzing(false);
+    }
   };
 
   const handleBlur = useCallback(() => setTouched(true), []);
@@ -36,13 +63,13 @@ export default function Main() {
         error={errorMessage}
       />
 
-      <ProcessPanel />
+      <ProcessPanel isAnalyzing={isAnalyzing} robotsResult={robotsResult} />
 
       <div className="flex justify-end">
         <ActionBar
           onCancel={handleCancel}
           onStartAnalysis={handleStartAnalysis}
-          startDisabled={!valid}
+          startDisabled={!valid || isAnalyzing}
         />
       </div>
     </div>
