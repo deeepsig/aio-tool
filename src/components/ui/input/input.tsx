@@ -12,7 +12,7 @@ export default function Input({
   value,
   onChange,
   onBlur,
-  placeholder = 'https://reddit.com',
+  placeholder = 'http://tryprofound.com',
   className = '',
 }: InputProps) {
   return (

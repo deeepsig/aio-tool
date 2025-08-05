@@ -17,7 +17,7 @@ export default function Main() {
   const valid = isValidUrl(url);
   const errorMessage =
     touched && !valid
-      ? 'Please enter a valid URL (e.g. https://reddit.com).'
+      ? 'Please enter a valid URL (e.g. http://tryprofound.com).'
       : undefined;
 
   const handleCancel = () => {
