@@ -4,7 +4,7 @@ import React from 'react';
 import Main from './main-card/main';
 import Navbar from './navbar/navbar';
 import { AnalysisProvider } from '@/contexts/analysis-context';
-import QueryProvider from './providers/query-provider';
+import QueryProvider from '../providers/query-provider';
 
 export default function AppClient() {
   return (
