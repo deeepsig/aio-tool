@@ -20,7 +20,7 @@ export default function MenuButton({
     <button
       onClick={onClick}
       disabled={disabled}
-      className={`cursor-pointer hover:opacity-80 transition-all duration-50 hover:bg-white/5 rounded hover:p-1 hover:-m-1 group ${className}`}
+      className={`cursor-pointer hover:opacity-80 transition-all duration-150 hover:bg-white/5 rounded hover:p-1 hover:-m-1 group ${className}`}
       type="button"
     >
       <IconMenu
