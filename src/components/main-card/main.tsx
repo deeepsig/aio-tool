@@ -6,9 +6,9 @@ import ProcessPanel from '../process/process-panel';
 import RecommendationsPanel from '../recommendations/recommendations-panel';
 import UrlInput from '../url/url-input';
 import { isValidUrl } from '@/utils/validation';
-import { fetchRobotsTxt, RobotsTxtResult } from '@/utils/robots';
 import { useProcessSteps } from '@/hooks/useProcessSteps';
 import { useAnalysis } from '@/contexts/analysis-context';
+import { useRobotsAnalysis } from '@/hooks/useRobotsQuery';
 
 export default function Main() {
   const {
@@ -21,15 +21,39 @@ export default function Main() {
   } = useAnalysis();
 
   const [touched, setTouched] = useState(false);
-  const [isAnalyzing, setIsAnalyzing] = useState(false);
   const { steps, resetSteps, startFetchStep, updateFromRobotsResult } =
     useProcessSteps();
+
+  // TanStack Query hook for robots.txt fetching
+  const {
+    data: robotsResult,
+    error: robotsError,
+    isAnalyzing,
+    canAnalyze,
+    startAnalysis,
+  } = useRobotsAnalysis(url);
 
   const valid = isValidUrl(url);
   const errorMessage =
     touched && !valid
       ? 'Please enter a valid URL (e.g. https://tryprofound.com).'
       : undefined;
+
+  // Handle robots.txt query results
+  useEffect(() => {
+    if (robotsResult) {
+      updateFromRobotsResult(robotsResult);
+    }
+  }, [robotsResult, updateFromRobotsResult]);
+
+  // Handle query errors
+  useEffect(() => {
+    if (robotsError) {
+      console.error('Failed to fetch robots.txt:', robotsError);
+      // You could also update your steps to show an error state
+      setAnalysisResult(null);
+    }
+  }, [robotsError, setAnalysisResult]);
 
   // Update context when analysis completes
   useEffect(() => {
@@ -44,32 +68,20 @@ export default function Main() {
   const handleCancel = () => {
     setUrl('');
     setTouched(false);
-    setIsAnalyzing(false);
     setAnalysisResult(null);
     resetSteps();
     setCurrentView('home');
   };
 
   const handleStartAnalysis = async () => {
-    if (!valid) return;
+    if (!canAnalyze) return;
 
-    setIsAnalyzing(true);
     // Clear previous analysis result when starting new analysis
     setAnalysisResult(null);
     startFetchStep();
 
-    try {
-      const result: RobotsTxtResult = await fetchRobotsTxt(url);
-      updateFromRobotsResult(result);
-    } catch (error) {
-      console.error('Failed to fetch robots.txt:', error);
-      // Clear analysis result on error to prevent showing stale data
-      setAnalysisResult(null);
-      // Optionally, you could set an error state in your steps or context
-      // to show a proper error message to the user
-    } finally {
-      setIsAnalyzing(false);
-    }
+    // Trigger the query
+    startAnalysis();
   };
 
   const handleBlur = useCallback(() => setTouched(true), []);
@@ -80,14 +92,19 @@ export default function Main() {
         url={url}
         onChange={setUrl}
         onBlur={handleBlur}
-        error={errorMessage}
+        error={
+          errorMessage ||
+          (robotsError
+            ? 'Failed to fetch robots.txt. Please try again.'
+            : undefined)
+        }
       />
       <ProcessPanel steps={steps} />
       <div className="flex justify-end">
         <ActionBar
           onCancel={handleCancel}
           onStartAnalysis={handleStartAnalysis}
-          startDisabled={!valid || isAnalyzing}
+          startDisabled={!canAnalyze || isAnalyzing}
         />
       </div>
     </>
