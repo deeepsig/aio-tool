@@ -42,6 +42,21 @@ export default function ProcessCard({
     }
   };
 
+  // Get animation class based on status
+  const getIconAnimationClass = () => {
+    switch (step.status) {
+      case 'fetching':
+      case 'analyzing':
+        return 'icon-spinner';
+      case 'completed':
+        return 'icon-check';
+      case 'error':
+        return 'icon-error';
+      default:
+        return '';
+    }
+  };
+
   return (
     <div
       className={`process-card-glow w-full ${isExpanded ? 'process-card-expanded' : 'process-card-collapsed'} ${className}`}
@@ -51,7 +66,10 @@ export default function ProcessCard({
         onClick={toggleExpanded}
       >
         <div className="flex items-center gap-3">
-          <IconComponent className="w-4 h-4" fill={statusConfig.iconColor} />
+          <IconComponent
+            className={`w-4 h-4 icon ${getIconAnimationClass()}`}
+            fill={statusConfig.iconColor}
+          />
           <span className="text-[#D9D9D9] text-sm font-medium">
             {step.title}
           </span>
