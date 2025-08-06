@@ -1,6 +1,15 @@
 @import 'tailwindcss';
 
 /* ========================================
+   TODO: TEMPORARY 90% SIZE REDUCTION
+   Remove this section when normal sizing is needed
+======================================== */
+/* Global 90% scale reduction for all content */
+html {
+  transform: scale(0.9);
+}
+
+/* ========================================
    CSS VARIABLES & THEME
 ======================================== */
 :root {
