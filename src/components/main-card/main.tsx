@@ -52,7 +52,10 @@ export default function Main() {
 
   const handleStartAnalysis = async () => {
     if (!valid) return;
+
     setIsAnalyzing(true);
+    // Clear previous analysis result when starting new analysis
+    setAnalysisResult(null);
     startFetchStep();
 
     try {
@@ -60,6 +63,10 @@ export default function Main() {
       updateFromRobotsResult(result);
     } catch (error) {
       console.error('Failed to fetch robots.txt:', error);
+      // Clear analysis result on error to prevent showing stale data
+      setAnalysisResult(null);
+      // Optionally, you could set an error state in your steps or context
+      // to show a proper error message to the user
     } finally {
       setIsAnalyzing(false);
     }

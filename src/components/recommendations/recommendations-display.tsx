@@ -1,6 +1,11 @@
 // src/components/recommendations/recommendations-display.tsx
 import React from 'react';
 import { AnalysisResult } from '@/utils/process-helpers';
+import IconCheck from '@/components/ui/icons/icon-check';
+import IconXCircle from '@/components/ui/icons/icon-x-circle';
+import IconAlertTriangle from '@/components/ui/icons/icon-alert-triangle';
+import IconInfo from '@/components/ui/icons/icon-info';
+import IconLightbulb from '@/components/ui/icons/icon-lightbulb';
 
 interface RecommendationsDisplayProps {
   analysis: AnalysisResult;
@@ -120,46 +125,49 @@ function RecommendationCard({
 }: {
   recommendation: Recommendation;
 }) {
-  const typeStyles = {
+  const typeConfig = {
     critical: {
-      border: 'border-[#DC2626]',
-      bg: 'bg-[#2A1010]',
-      icon: '🚫',
-      iconColor: 'text-[#DC2626]',
+      border: 'border-[#3D2A2A]',
+      bg: 'bg-[#1A1010]',
+      icon: IconXCircle,
+      iconColor: '#F87171',
       titleColor: 'text-[#F87171]',
     },
     warning: {
-      border: 'border-[#D97706]',
-      bg: 'bg-[#2A1F10]',
-      icon: '⚠️',
-      iconColor: 'text-[#D97706]',
+      border: 'border-[#3A2F1A]',
+      bg: 'bg-[#1A1610]',
+      icon: IconAlertTriangle,
+      iconColor: '#FCD34D',
       titleColor: 'text-[#FCD34D]',
     },
     info: {
-      border: 'border-[#2563EB]',
+      border: 'border-[#2A3441]',
       bg: 'bg-[#10172A]',
-      icon: 'ℹ️',
-      iconColor: 'text-[#2563EB]',
+      icon: IconInfo,
+      iconColor: '#60A5FA',
       titleColor: 'text-[#60A5FA]',
     },
     success: {
-      border: 'border-[#059669]',
+      border: 'border-[#293733]',
       bg: 'bg-[#102A20]',
-      icon: '✅',
-      iconColor: 'text-[#059669]',
-      titleColor: 'text-[#10B981]',
+      icon: IconCheck,
+      iconColor: '#01D7A1',
+      titleColor: 'text-[#01D7A1]',
     },
   };
 
-  const style = typeStyles[recommendation.type];
+  const config = typeConfig[recommendation.type];
+  const IconComponent = config.icon;
 
   return (
-    <div className={`p-4 ${style.bg} border ${style.border} rounded-lg mb-3`}>
+    <div className={`p-4 ${config.bg} border ${config.border} rounded-lg mb-3`}>
       <div className="flex items-start gap-3">
-        <span className="text-lg flex-shrink-0 mt-0.5">{style.icon}</span>
+        <div className="flex-shrink-0 mt-0.5">
+          <IconComponent width={16} height={16} fill={config.iconColor} />
+        </div>
         <div className="flex-1 min-w-0">
           <div
-            className={`font-mono text-sm font-semibold mb-2 ${style.titleColor}`}
+            className={`font-mono text-sm font-semibold mb-2 ${config.titleColor}`}
           >
             {recommendation.title}
           </div>
@@ -200,22 +208,30 @@ function SummaryHeader({ analysis }: { analysis: AnalysisResult }) {
   );
   const accessibilityScore = 100 - blockedPercentage;
 
-  let scoreColor = 'text-[#10B981]'; // Good (green)
+  let scoreColor = 'text-[#01D7A1]'; // Good (green)
   let scoreLabel = 'Excellent';
+  let scoreBg = 'bg-[#293733]';
+  let scoreBorder = 'border-[#293733]';
 
   if (accessibilityScore < 30) {
-    scoreColor = 'text-[#DC2626]'; // Bad (red)
+    scoreColor = 'text-[#F87171]'; // Bad (red)
     scoreLabel = 'Poor';
+    scoreBg = 'bg-[#3D2A2A]';
+    scoreBorder = 'border-[#3D2A2A]';
   } else if (accessibilityScore < 70) {
-    scoreColor = 'text-[#D97706]'; // Warning (orange)
+    scoreColor = 'text-[#FCD34D]'; // Warning (yellow)
     scoreLabel = 'Needs Improvement';
+    scoreBg = 'bg-[#3A2F1A]';
+    scoreBorder = 'border-[#3A2F1A]';
   } else if (accessibilityScore < 90) {
-    scoreColor = 'text-[#2563EB]'; // Info (blue)
+    scoreColor = 'text-[#60A5FA]'; // Info (blue)
     scoreLabel = 'Good';
+    scoreBg = 'bg-[#2A3441]';
+    scoreBorder = 'border-[#2A3441]';
   }
 
   return (
-    <div className="p-4 bg-[#1a1a1a] border border-[#2a2a2a] rounded-lg mb-4">
+    <div className={`p-4 ${scoreBg} border ${scoreBorder} rounded-lg mb-4`}>
       <div className="flex items-center justify-between">
         <div>
           <div className="text-[#D9D9D9] font-mono text-sm font-semibold">
@@ -261,8 +277,9 @@ export default function RecommendationsDisplay({
 
       {/* Footer note */}
       <div className="mt-4 p-3 bg-[#1a1a1a] border border-[#2a2a2a] rounded-lg">
-        <div className="text-[#888] font-mono text-xs text-center">
-          💡 Always test robots.txt changes and monitor crawl patterns after
+        <div className="flex items-center justify-center gap-2 text-[#888] font-mono text-xs">
+          <IconLightbulb width={14} height={14} fill="#888" />
+          Always test robots.txt changes and monitor crawl patterns after
           implementation
         </div>
       </div>

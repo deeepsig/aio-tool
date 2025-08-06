@@ -20,8 +20,6 @@ export default function UrlInput({
 }: UrlInputProps) {
   return (
     <div className={`space-y-2 ${className}`}>
-      {' '}
-      {/* tighten spacing between label/input */}
       <h3 className="font-semibold text-base text-[#D9D9D9]">Endpoint</h3>
       <Input
         value={url}
