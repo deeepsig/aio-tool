@@ -1,25 +1,25 @@
 import React from 'react';
-import Count from './count';
+import ViewCount from './viewcount';
 import MenuButton from '../ui/buttons/button-menu';
 
-interface InfoPanelProps {
+interface NavbarProps {
   text?: string;
   count?: number;
   onMenuClick?: () => void;
   className?: string;
 }
 
-export default function InfoPanel({
+export default function Navbar({
   text,
   count,
   onMenuClick,
   className = '',
-}: InfoPanelProps) {
+}: NavbarProps) {
   return (
     <div
       className={`flex items-center justify-between w-full px-2 ${className}`}
     >
-      <Count text={text} count={count} />
+      <ViewCount text={text} count={count} />
       <MenuButton onClick={onMenuClick} />
     </div>
   );

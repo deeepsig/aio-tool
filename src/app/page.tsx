@@ -1,5 +1,4 @@
-// src/app/page.tsx
-import InfoPanel from '@/components/info/info-panel';
+import Navbar from '@/components/navbar/navbar'; // Update import path as needed
 import Main from '@/components/main-card/main';
 
 export default function Page() {
@@ -10,7 +9,7 @@ export default function Page() {
           AIO Analyzer
         </h2>
         <Main />
-        <InfoPanel />
+        <Navbar />
       </div>
     </div>
   );
