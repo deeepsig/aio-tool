@@ -1,17 +1,17 @@
 import React from 'react';
 import IconGraph from '../ui/icons/icon-graph';
 
-interface CountProps {
+interface ViewCountProps {
   text?: string;
   count?: number;
   className?: string;
 }
 
-export default function Count({
+export default function ViewCount({
   text = 'Total Sites Analyzed',
   count = 35958,
   className = '',
-}: CountProps) {
+}: ViewCountProps) {
   return (
     <div className={`flex items-center gap-2 text-base ${className}`}>
       <IconGraph width={20} height={20} fill="#696969" />
