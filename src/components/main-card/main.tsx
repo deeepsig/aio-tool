@@ -2,6 +2,7 @@
 import React, { useState, useCallback } from 'react';
 import ActionBar from '../action-bar/action-bar';
 import ProcessPanel from '../process/process-panel';
+import RecommendationsPanel from '../recommendations/recommendations-panel';
 import UrlInput from '../url/url-input';
 import { isValidUrl } from '@/utils/validation';
 import { fetchRobotsTxt, RobotsTxtResult } from '@/utils/robots';
@@ -19,6 +20,12 @@ export default function Main() {
     touched && !valid
       ? 'Please enter a valid URL (e.g. https://tryprofound.com).'
       : undefined;
+
+  // Get the analysis result from completed analysis step
+  const analysisStep = steps.find(
+    (step) => step.id === 'analyze-robots' && step.status === 'completed'
+  );
+  const analysisResult = analysisStep?.analysisResult;
 
   const handleCancel = () => {
     setUrl('');
@@ -62,6 +69,8 @@ export default function Main() {
       />
 
       <ProcessPanel steps={steps} />
+
+      <RecommendationsPanel analysisResult={analysisResult} />
 
       <div className="flex justify-end">
         <ActionBar
