@@ -1,5 +1,4 @@
-import Navbar from '@/components/navbar/navbar'; // Update import path as needed
-import Main from '@/components/main-card/main';
+import AppClient from '@/components/app-client';
 
 export default function Page() {
   return (
@@ -8,8 +7,8 @@ export default function Page() {
         <h2 className="px-2 text-base text-[#D9D9D9] font-semibold">
           AIO Analyzer
         </h2>
-        <Main />
-        <Navbar />
+        {/* This is the "client island" - only this part becomes client-side */}
+        <AppClient />
       </div>
     </div>
   );
