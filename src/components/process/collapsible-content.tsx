@@ -41,7 +41,7 @@ export default function CollapsibleContent({
     >
       <div
         className="px-4 pb-4 pt-2"
-        style={{ borderTop: '1px solid #222222' }}
+        style={{ borderTop: '1px solid #1a1a1a' }}
       >
         {shouldShowRobotsDisplay ? (
           <RobotsTxtDisplay content={content} />
@@ -49,7 +49,7 @@ export default function CollapsibleContent({
           <AiBotAnalysisDisplay analysis={analysisResult} />
         ) : (
           <div
-            className={`content-display text-xs font-mono ${error ? 'text-red-400' : ''}`}
+            className={`content-display text-xs font-sans ${error ? 'text-red-400' : ''}`}
             role={error ? 'alert' : 'status'}
             aria-live={error ? 'assertive' : 'polite'}
           >
