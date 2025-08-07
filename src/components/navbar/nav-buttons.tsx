@@ -32,7 +32,7 @@ function NavButton({
         cursor-pointer 
         transition-all duration-100 ease-in-out
         rounded 
-        text-base 
+        text-sm 
         disabled:opacity-40 
         disabled:cursor-not-allowed 
         hover:opacity-80 

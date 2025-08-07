@@ -43,7 +43,7 @@ export default function RecommendationsPanel({
     >
       <h3
         id="recommendations-heading"
-        className="font-semibold text-base text-[#D9D9D9]"
+        className="font-medium text-base text-[#D9D9D9]"
       >
         Recommendations
       </h3>

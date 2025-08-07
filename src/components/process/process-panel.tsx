@@ -23,7 +23,7 @@ export default function ProcessPanel({
     >
       <h3
         id="processes-heading"
-        className="font-semibold text-base text-[#D9D9D9]"
+        className="font-medium text-base text-[#D9D9D9]"
       >
         Processes
       </h3>

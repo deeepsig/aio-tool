@@ -22,7 +22,7 @@ export default function UrlInput({
 
   return (
     <div className={`space-y-2 ${className}`}>
-      <h3 id={labelId} className="font-normal text-base text-[#D9D9D9]">
+      <h3 id={labelId} className="font-medium text-base text-[#D9D9D9]">
         Endpoint
       </h3>
       <Input

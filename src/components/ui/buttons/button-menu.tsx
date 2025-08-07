@@ -13,7 +13,7 @@ export default function MenuButton({
   onClick,
   disabled = false,
   className = '',
-  iconSize = 24,
+  iconSize = 20,
   iconFill = '#D9D9D9',
 }: MenuButtonProps) {
   return (

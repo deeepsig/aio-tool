@@ -14,7 +14,7 @@ export default function ViewCount({
 }: ViewCountProps) {
   return (
     <div
-      className={`flex items-center gap-2 text-base px-2 py-1 -mx-2 -my-1 ${className}`}
+      className={`flex items-center gap-2 text-sm px-2 py-1 -mx-2 -my-1 ${className}`}
     >
       <IconGraph width={20} height={20} fill="#696969" />
       <span className="text-[#696969] font-medium">{text}</span>
