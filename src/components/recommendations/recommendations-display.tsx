@@ -1,6 +1,12 @@
 // src/components/recommendations/recommendations-display.tsx
 import React from 'react';
 import { AnalysisResult } from '@/utils/process-helpers';
+import {
+  DisplayContainer,
+  ScoreDisplay,
+  RecommendationSection,
+  RecommendationItem,
+} from '../process/common/display-components';
 
 interface RecommendationsDisplayProps {
   analysis: AnalysisResult;
@@ -91,61 +97,26 @@ export default function RecommendationsDisplay({
   const recommendations = getRecommendations(analysis);
 
   return (
-    <div
-      className={`recommendations-display max-h-[400px] overflow-y-auto font-sans font-light ${className}`}
-    >
-      <div className="space-y-0">
+    <div className={`font-sans font-light ${className}`}>
+      <DisplayContainer maxHeight="lg">
         {/* AI Accessibility Score */}
-        <div className="border-b border-[#2a2a2a] py-2">
-          <div className="flex justify-between items-center">
-            <div className="text-[#98979A] text-base">
-              AI Accessibility Score
-            </div>
-            <div className="text-[#01D7A1] text-base font-semibold">
-              {accessibilityScore}%
-            </div>
-          </div>
-          <div className="text-[#D9D9D9] text-sm my-1">
-            This is calculated by examining how many of the bots mentioned in
-            ai-robot-list have been specifically blocked by the robots.txt file.
-          </div>
-        </div>
+        <ScoreDisplay
+          label="AI Accessibility Score"
+          score={accessibilityScore}
+          description="This is calculated by examining how many of the bots mentioned in ai-robot-list have been specifically blocked by the robots.txt file."
+        />
 
         {/* Recommended Next Steps */}
-        <div className="py-2">
-          <div className="text-[#98979A] text-base mb-1">
-            Recommended Next Steps
-          </div>
-
-          <div className="space-y-1 pl-2 pt-1">
-            {recommendations.map((recommendation) => (
-              <div key={recommendation.id} className="flex">
-                {/* 4px dash line */}
-                <div
-                  className="w-6 bg-[#444444] mr-3 mt-2 flex-shrink-0"
-                  style={{ height: '1px' }}
-                ></div>
-
-                <div className="flex-1">
-                  <div className="text-[#D9D9D9] text-sm">
-                    {recommendation.text}
-                  </div>
-                  {recommendation.code && (
-                    <div className="mt-1 mb-1">
-                      <div className="text-[#98979A] text-sm pb-1">
-                        example-
-                      </div>
-                      <pre className="bg-[#1a1a1a] p-2 text-[#98979A] font-mono text-sm whitespace-pre-wrap">
-                        {recommendation.code}
-                      </pre>
-                    </div>
-                  )}
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
+        <RecommendationSection title="Recommended Next Steps">
+          {recommendations.map((recommendation) => (
+            <RecommendationItem
+              key={recommendation.id}
+              text={recommendation.text}
+              code={recommendation.code}
+            />
+          ))}
+        </RecommendationSection>
+      </DisplayContainer>
     </div>
   );
 }
