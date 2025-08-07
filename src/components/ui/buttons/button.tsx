@@ -13,7 +13,7 @@ export default function Button({
   ...props
 }: ButtonProps) {
   const baseClasses =
-    'px-2 py-1 font-medium text-sm rounded-md transition-all duration-150 ease-in-out';
+    'px-2 py-1 font-medium text-sm rounded transition-all duration-150 ease-in-out';
   const variantClasses = {
     primary: 'button-primary',
     secondary: 'button-secondary',

@@ -13,7 +13,7 @@ export default function Navbar({ className = '' }: NavbarProps) {
 
   return (
     <header
-      className={`flex items-center justify-between w-full px-2 ${className}`}
+      className={`flex items-center justify-between w-full px-4 ${className}`}
     >
       <NavButtons
         currentView={currentView}
