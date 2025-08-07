@@ -185,14 +185,14 @@ body {
 /* ========================================
    PROCESS CARD COMPONENT
 ======================================== */
-/* Main process card container - no hover effects */
-.process-card-glow {
+
+/* Main process card container*/
+.process-card-container {
   background: #212121;
   box-shadow:
     0 0 4px rgba(0, 0, 0, 0.12),
     inset 0 1px 0 rgba(255, 255, 255, 0.02);
   border-radius: 4px;
-  /* Remove cursor and transition from main container */
 }
 
 /* Clickable header area - only this should highlight */
@@ -215,6 +215,12 @@ body {
 .process-card-collapsed .process-card-header {
   border-radius: 4px;
 }
+
+/* ========================================
+   CONTENT DISPLAY COMPONENT 
+
+   Only for the cases when we have an error, empty robot file process card displays
+======================================== */
 
 .content-display {
   padding: 12px 16px;
