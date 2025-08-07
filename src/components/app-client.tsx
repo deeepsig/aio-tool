@@ -10,8 +10,8 @@ export default function AppClient() {
   return (
     <QueryProvider>
       <AnalysisProvider>
-        <Main />
         <Navbar />
+        <Main />
       </AnalysisProvider>
     </QueryProvider>
   );
