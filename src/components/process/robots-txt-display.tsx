@@ -25,13 +25,35 @@ function RouteList({ routes }: RouteListProps) {
   );
 }
 
+interface SitemapListProps {
+  sitemaps: string[];
+}
+
+function SitemapList({ sitemaps }: SitemapListProps) {
+  return (
+    <div className="flex-1 min-w-0">
+      <div className="space-y-0">
+        {sitemaps.map((sitemap, index) => (
+          <div
+            key={index}
+            className="text-[#D9D9D9] font-sans text-sm truncate"
+          >
+            {sitemap}
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
 interface SectionProps {
   label: string;
   value?: string | string[];
   count?: number;
+  isSitemap?: boolean;
 }
 
-function Section({ label, value, count }: SectionProps) {
+function Section({ label, value, count, isSitemap = false }: SectionProps) {
   // Don't render if no value or empty array
   if (!value || (Array.isArray(value) && value.length === 0)) {
     return null;
@@ -51,10 +73,16 @@ function Section({ label, value, count }: SectionProps) {
         </div>
 
         {Array.isArray(value) ? (
-          <RouteList routes={value} />
+          isSitemap ? (
+            <SitemapList sitemaps={value} />
+          ) : (
+            <RouteList routes={value} />
+          )
         ) : (
-          <div className="flex-1">
-            <div className="text-[#D9D9D9] font-sans text-sm">{value}</div>
+          <div className="flex-1 min-w-0">
+            <div className="text-[#D9D9D9] font-sans text-sm truncate">
+              {value}
+            </div>
           </div>
         )}
       </div>
@@ -100,6 +128,13 @@ export default function RobotsTxtDisplay({
             <Section label="Allow" value={ua.allows} />
           </div>
         ))}
+
+        {/* Render sitemaps if they exist */}
+        {parsed.sitemaps.length > 0 && (
+          <div className="mt-2">
+            <Section label="Sitemap" value={parsed.sitemaps} isSitemap={true} />
+          </div>
+        )}
       </div>
     </div>
   );
