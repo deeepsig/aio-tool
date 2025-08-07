@@ -1,4 +1,3 @@
-// src/components/process/process-panel.tsx
 import React from 'react';
 import { ProcessStep } from '@/types/process';
 import ProcessCard from './process-card';
@@ -18,13 +17,27 @@ export default function ProcessPanel({
   }
 
   return (
-    <div className={`space-y-2 ${className}`}>
-      <h3 className="font-semibold text-base text-[#D9D9D9]">Processes</h3>
-      <div className="space-y-2">
+    <section
+      className={`space-y-2 ${className}`}
+      aria-labelledby="processes-heading"
+    >
+      <h3
+        id="processes-heading"
+        className="font-semibold text-base text-[#D9D9D9]"
+      >
+        Processes
+      </h3>
+      <div
+        className="space-y-2"
+        role="list"
+        aria-label="Analysis process steps"
+      >
         {steps.map((step) => (
-          <ProcessCard key={step.id} step={step} />
+          <div key={step.id} role="listitem">
+            <ProcessCard step={step} />
+          </div>
         ))}
       </div>
-    </div>
+    </section>
   );
 }
