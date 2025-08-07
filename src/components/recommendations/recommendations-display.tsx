@@ -19,6 +19,7 @@ interface Recommendation {
   code?: string;
 }
 
+// TODO: Move elsewhere later
 function getRecommendations(analysis: AnalysisResult): Recommendation[] {
   const recommendations: Recommendation[] = [];
 
@@ -86,6 +87,12 @@ function getRecommendations(analysis: AnalysisResult): Recommendation[] {
   return recommendations;
 }
 
+function getScoreColor(score: number): string {
+  if (score >= 80) return '#01D7A1'; // Green for high scores (good accessibility)
+  if (score >= 60) return '#60A5FA'; // Blue for medium scores
+  return '#F87171'; // Red for low scores (poor accessibility)
+}
+
 export default function RecommendationsDisplay({
   analysis,
   className = '',
@@ -95,6 +102,7 @@ export default function RecommendationsDisplay({
   );
   const accessibilityScore = 100 - blockedPercentage;
   const recommendations = getRecommendations(analysis);
+  const scoreColor = getScoreColor(accessibilityScore);
 
   return (
     <div className={`font-sans font-light ${className}`}>
@@ -104,6 +112,7 @@ export default function RecommendationsDisplay({
           label="AI Accessibility Score"
           score={accessibilityScore}
           description="This is calculated by examining how many of the bots mentioned in ai-robot-list have been specifically blocked by the robots.txt file."
+          scoreColor={scoreColor}
         />
 
         {/* Recommended Next Steps */}
