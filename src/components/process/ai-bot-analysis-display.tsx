@@ -13,7 +13,7 @@ interface AiBotAnalysisDisplayProps {
 
 function EmptyState({ message }: { message?: string }) {
   return (
-    <div className="text-center py-8 text-[#666]">
+    <div className="text-center py-8 text-[#666]" role="status">
       <div className="text-sm font-mono">
         {message || 'No AI bot analysis available'}
       </div>
@@ -28,18 +28,25 @@ function BlockedBotsSection({ bots }: { bots: string[] }) {
   return (
     <div className="p-3 bg-[#3D2A2A] border border-[#3D2A2A] rounded-lg">
       <div className="flex items-center gap-2 mb-3">
-        <IconXCircle width={16} height={16} fill="#F87171" />
+        <IconXCircle width={16} height={16} fill="#F87171" aria-hidden="true" />
         <div className="text-[#F87171] font-mono text-sm font-semibold">
           BLOCKED AI BOTS ({bots.length})
         </div>
       </div>
-      <div className="grid grid-cols-1 gap-1">
+      <ul
+        className="grid grid-cols-1 gap-1"
+        role="list"
+        aria-label={`${bots.length} blocked AI bots`}
+      >
         {bots.map((bot, index) => (
-          <div key={index} className="text-[#888] font-mono text-xs pl-4">
-            <span className="text-[#F87171]">•</span> {bot}
-          </div>
+          <li key={index} className="text-[#888] font-mono text-xs pl-4">
+            <span className="text-[#F87171]" aria-hidden="true">
+              •
+            </span>{' '}
+            {bot}
+          </li>
         ))}
-      </div>
+      </ul>
     </div>
   );
 }
@@ -57,10 +64,19 @@ function SummaryStats({
   const blockPercentage = Math.round((blockedCount / totalBots) * 100);
 
   return (
-    <div className="grid grid-cols-2 gap-3 mb-4">
+    <div
+      className="grid grid-cols-2 gap-3 mb-4"
+      role="region"
+      aria-label="Bot access summary"
+    >
       <div className="p-3 bg-[#3D2A2A] border border-[#3D2A2A] rounded-lg">
         <div className="flex items-center gap-2 mb-1">
-          <IconXCircle width={14} height={14} fill="#F87171" />
+          <IconXCircle
+            width={14}
+            height={14}
+            fill="#F87171"
+            aria-hidden="true"
+          />
           <div className="text-[#F87171] font-mono text-lg font-bold">
             {blockedCount}
           </div>
@@ -71,7 +87,7 @@ function SummaryStats({
       </div>
       <div className="p-3 bg-[#293733] border border-[#293733] rounded-lg">
         <div className="flex items-center gap-2 mb-1">
-          <IconCheck width={14} height={14} fill="#01D7A1" />
+          <IconCheck width={14} height={14} fill="#01D7A1" aria-hidden="true" />
           <div className="text-[#01D7A1] font-mono text-lg font-bold">
             {allowedCount}
           </div>
@@ -81,9 +97,17 @@ function SummaryStats({
         </div>
       </div>
       {hasWildcardBlock && (
-        <div className="col-span-2 p-2 bg-[#2A3441] border border-[#2A3441] rounded-lg">
+        <div
+          className="col-span-2 p-2 bg-[#2A3441] border border-[#2A3441] rounded-lg"
+          role="alert"
+        >
           <div className="flex items-center justify-center gap-2 text-[#60A5FA] font-mono text-xs">
-            <IconAlertTriangle width={14} height={14} fill="#60A5FA" />
+            <IconAlertTriangle
+              width={14}
+              height={14}
+              fill="#60A5FA"
+              aria-hidden="true"
+            />
             Wildcard (*) blocking detected - affects all unlisted bots
           </div>
         </div>
@@ -94,9 +118,12 @@ function SummaryStats({
 
 function NoBlocksFound({ totalBots }: { totalBots: number }) {
   return (
-    <div className="p-4 bg-[#293733] border border-[#293733] rounded-lg text-center">
+    <div
+      className="p-4 bg-[#293733] border border-[#293733] rounded-lg text-center"
+      role="status"
+    >
       <div className="flex items-center justify-center gap-2 mb-2">
-        <IconCheck width={16} height={16} fill="#01D7A1" />
+        <IconCheck width={16} height={16} fill="#01D7A1" aria-hidden="true" />
         <div className="text-[#01D7A1] font-mono text-sm font-semibold">
           No AI Bots Blocked
         </div>
@@ -114,7 +141,11 @@ export default function AiBotAnalysisDisplay({
 }: AiBotAnalysisDisplayProps) {
   if (analysis.isEmpty) {
     return (
-      <div className={`ai-bot-analysis-display ${className}`}>
+      <div
+        className={`ai-bot-analysis-display ${className}`}
+        role="region"
+        aria-label="AI bot analysis results"
+      >
         <EmptyState message={analysis.message} />
       </div>
     );
@@ -125,19 +156,24 @@ export default function AiBotAnalysisDisplay({
   return (
     <div
       className={`ai-bot-analysis-display max-h-[400px] overflow-y-auto ${className}`}
+      role="region"
+      aria-label="AI bot analysis results"
     >
       {/* Header */}
-      <div className="flex items-center justify-between mb-4 pb-2 border-b border-[#2a2a2a]">
+      <header className="flex items-center justify-between mb-4 pb-2 border-b border-[#2a2a2a]">
         <div className="flex items-center gap-2">
-          <IconInfo width={16} height={16} fill="#D9D9D9" />
-          <div className="text-[#D9D9D9] font-mono text-sm font-semibold">
+          <IconInfo width={16} height={16} fill="#D9D9D9" aria-hidden="true" />
+          <h4 className="text-[#D9D9D9] font-mono text-sm font-semibold">
             AI Bot Analysis
-          </div>
+          </h4>
         </div>
-        <div className="text-[#888] text-xs">
+        <div
+          className="text-[#888] text-xs"
+          aria-label={`Analysis checked ${analysis.totalBots} bots`}
+        >
           {analysis.totalBots} bots checked
         </div>
-      </div>
+      </header>
 
       {/* Summary Stats */}
       <SummaryStats
