@@ -1,4 +1,3 @@
-// src/components/navbar/navbar.tsx
 import React from 'react';
 import NavButtons from './nav-buttons';
 import MenuButton from '../ui/buttons/button-menu';
@@ -13,7 +12,7 @@ export default function Navbar({ onMenuClick, className = '' }: NavbarProps) {
   const { currentView, setCurrentView, hasAnalysisResult } = useAnalysis();
 
   return (
-    <div
+    <header
       className={`flex items-center justify-between w-full px-2 ${className}`}
     >
       <NavButtons
@@ -22,6 +21,6 @@ export default function Navbar({ onMenuClick, className = '' }: NavbarProps) {
         hasAnalysisResult={hasAnalysisResult}
       />
       <MenuButton onClick={onMenuClick} />
-    </div>
+    </header>
   );
 }
