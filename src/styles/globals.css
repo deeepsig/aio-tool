@@ -100,7 +100,7 @@ body {
   width: 498px;
   margin: 0 auto;
   padding: 14px 16px;
-  border-radius: 16px;
+  border-radius: 8px;
 }
 
 /* Inner content card with subtle depth */
@@ -113,7 +113,7 @@ body {
     0 0 8px rgba(0, 0, 0, 0.15);
   width: 100%;
   padding: 14px 16px;
-  border-radius: 14px;
+  border-radius: 6px;
 }
 
 /* ========================================
@@ -125,7 +125,7 @@ body {
   padding: 8px 16px;
   background: #171717;
   border: 1px solid #242424;
-  border-radius: 8px;
+  border-radius: 6px;
   font-size: 16px;
   color: #c0c0c0;
   box-shadow:
@@ -199,7 +199,7 @@ body {
   box-shadow:
     0 0 4px rgba(0, 0, 0, 0.12),
     inset 0 1px 0 rgba(255, 255, 255, 0.02);
-  border-radius: 8px;
+  border-radius: 6px;
   /* Remove cursor and transition from main container */
 }
 
@@ -221,14 +221,14 @@ body {
 
 /* When collapsed, header should have full border radius */
 .process-card-collapsed .process-card-header {
-  border-radius: 8px;
+  border-radius: 6px;
 }
 
 .content-display {
   padding: 12px 16px;
   background: #171717;
   border: 1px solid #242424;
-  border-radius: 8px;
+  border-radius: 6px;
   max-height: 128px;
   overflow-y: auto;
   color: #444444;
@@ -249,7 +249,7 @@ body {
   background: #171717;
   border: 1px solid #242424;
   max-height: 200px;
-  border-radius: 8px;
+  border-radius: 6px;
   box-shadow:
     0 1px 3px rgba(0, 0, 0, 0.12),
     0 0 4px rgba(0, 0, 0, 0.08);
@@ -284,7 +284,7 @@ body {
   background: #171717;
   border: 1px solid #242424;
   max-height: 200px;
-  border-radius: 8px;
+  border-radius: 6px;
   box-shadow:
     0 1px 3px rgba(0, 0, 0, 0.12),
     0 0 4px rgba(0, 0, 0, 0.08);
@@ -318,7 +318,7 @@ body {
   padding: 12px 16px;
   background: #171717;
   border: 1px solid #242424;
-  border-radius: 8px;
+  border-radius: 6px;
   box-shadow:
     0 1px 3px rgba(0, 0, 0, 0.12),
     0 0 4px rgba(0, 0, 0, 0.08);
