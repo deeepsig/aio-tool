@@ -1,6 +1,6 @@
 import React from 'react';
 import NavButtons from './nav-buttons';
-import MenuButton from '../ui/buttons/button-menu';
+// import MenuButton from '../ui/buttons/button-menu';
 import { useAnalysis } from '@/contexts/analysis-context';
 
 interface NavbarProps {
@@ -8,7 +8,7 @@ interface NavbarProps {
   className?: string;
 }
 
-export default function Navbar({ onMenuClick, className = '' }: NavbarProps) {
+export default function Navbar({ className = '' }: NavbarProps) {
   const { currentView, setCurrentView, hasAnalysisResult } = useAnalysis();
 
   return (
@@ -20,7 +20,7 @@ export default function Navbar({ onMenuClick, className = '' }: NavbarProps) {
         onViewChange={setCurrentView}
         hasAnalysisResult={hasAnalysisResult}
       />
-      <MenuButton onClick={onMenuClick} />
+      {/* <MenuButton onClick={onMenuClick} /> */}
     </header>
   );
 }
