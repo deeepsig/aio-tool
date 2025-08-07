@@ -36,7 +36,7 @@ export default function UrlInput({
         aria-invalid={!!error}
       />
       {error && (
-        <p id={errorId} className="pl-1 text-sm text-red-500" role="alert">
+        <p id={errorId} className="pl-1 text-sm text-[#F87171]" role="alert">
           {error}
         </p>
       )}

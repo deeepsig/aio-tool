@@ -77,8 +77,9 @@ export default function ProcessCard({
 
   return (
     <div
-      className={`process-card-glow w-full ${isExpanded ? 'process-card-expanded' : 'process-card-collapsed'} ${className}`}
+      className={`process-card-container w-full ${isExpanded ? 'process-card-expanded' : 'process-card-collapsed'} ${className}`}
     >
+      {/* Clickable header area - only this should highlight (process-card-header)*/}
       <div
         className="process-card-header flex w-full items-center justify-between px-4 py-2"
         onClick={toggleExpanded}

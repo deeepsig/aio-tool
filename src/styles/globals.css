@@ -185,14 +185,14 @@ body {
 /* ========================================
    PROCESS CARD COMPONENT
 ======================================== */
-/* Main process card container - no hover effects */
-.process-card-glow {
+
+/* Main process card container*/
+.process-card-container {
   background: #212121;
   box-shadow:
     0 0 4px rgba(0, 0, 0, 0.12),
     inset 0 1px 0 rgba(255, 255, 255, 0.02);
   border-radius: 4px;
-  /* Remove cursor and transition from main container */
 }
 
 /* Clickable header area - only this should highlight */
@@ -216,6 +216,12 @@ body {
   border-radius: 4px;
 }
 
+/* ========================================
+   CONTENT DISPLAY COMPONENT 
+
+   Only for the cases when we have an error, empty robot file process card displays
+======================================== */
+
 .content-display {
   padding: 12px 16px;
   background: #161616;
@@ -231,108 +237,6 @@ body {
   /* Firefox scrollbar styling */
   scrollbar-width: thin;
   scrollbar-color: #404040 transparent;
-}
-
-/* ========================================
-   ROBOTS.TXT DISPLAY COMPONENT
-======================================== */
-.robots-txt-display {
-  padding: 12px 16px;
-  background: #161616;
-  max-height: 200px;
-  border-radius: 2px;
-  box-shadow:
-    0 1px 3px rgba(0, 0, 0, 0.12),
-    0 0 4px rgba(0, 0, 0, 0.08);
-  /* Firefox scrollbar styling */
-  scrollbar-width: thin;
-  scrollbar-color: #404040 transparent;
-}
-
-/* Robots.txt specific scrollbar styling */
-.robots-txt-display::-webkit-scrollbar {
-  width: 6px;
-}
-
-.robots-txt-display::-webkit-scrollbar-track {
-  background: transparent;
-}
-
-.robots-txt-display::-webkit-scrollbar-thumb {
-  background-color: #404040;
-  border-radius: 9999px;
-}
-
-.robots-txt-display::-webkit-scrollbar-thumb:hover {
-  background-color: #505050;
-}
-
-/* ========================================
-   AI BOT ANALYSIS DISPLAY COMPONENT
-======================================== */
-.ai-bot-analysis-display {
-  padding: 12px 16px;
-  background: #161616;
-  max-height: 200px;
-  border-radius: 2px;
-  box-shadow:
-    0 1px 3px rgba(0, 0, 0, 0.12),
-    0 0 4px rgba(0, 0, 0, 0.08);
-  /* Firefox scrollbar styling */
-  scrollbar-width: thin;
-  scrollbar-color: #404040 transparent;
-}
-
-/* AI bot analysis specific scrollbar styling */
-.ai-bot-analysis-display::-webkit-scrollbar {
-  width: 6px;
-}
-
-.ai-bot-analysis-display::-webkit-scrollbar-track {
-  background: transparent;
-}
-
-.ai-bot-analysis-display::-webkit-scrollbar-thumb {
-  background-color: #404040;
-  border-radius: 9999px;
-}
-
-.ai-bot-analysis-display::-webkit-scrollbar-thumb:hover {
-  background-color: #505050;
-}
-
-/* ========================================
-   RECOMMENDATIONS DISPLAY COMPONENT
-======================================== */
-.recommendations-display {
-  padding: 12px 16px;
-  background: #161616;
-  border: 1px solid #242424;
-  border-radius: 4px;
-  box-shadow:
-    0 1px 3px rgba(0, 0, 0, 0.12),
-    0 0 4px rgba(0, 0, 0, 0.08);
-  /* Firefox scrollbar styling */
-  scrollbar-width: thin;
-  scrollbar-color: #404040 transparent;
-}
-
-/* Recommendations specific scrollbar styling */
-.recommendations-display::-webkit-scrollbar {
-  width: 6px;
-}
-
-.recommendations-display::-webkit-scrollbar-track {
-  background: transparent;
-}
-
-.recommendations-display::-webkit-scrollbar-thumb {
-  background-color: #404040;
-  border-radius: 9999px;
-}
-
-.recommendations-display::-webkit-scrollbar-thumb:hover {
-  background-color: #505050;
 }
 
 /* ========================================
