@@ -39,7 +39,6 @@ function getRecommendations(analysis: AnalysisResult): Recommendation[] {
       code: 'User-agent: GPTBot\nAllow: /\n\nUser-agent: GoogleOther\nAllow: /',
     });
   }
-
   // Warning: Many bots blocked
   else if (analysis.blockedBots.length > analysis.totalBots * 0.5) {
     recommendations.push({
@@ -51,7 +50,6 @@ function getRecommendations(analysis: AnalysisResult): Recommendation[] {
       code: 'User-agent: GPTBot\nAllow: /\n\nUser-agent: Claude-Web\nAllow: /',
     });
   }
-
   // Warning: Wildcard blocking with some exceptions
   else if (analysis.hasWildcardBlock && analysis.blockedBots.length > 0) {
     recommendations.push({
@@ -64,7 +62,6 @@ function getRecommendations(analysis: AnalysisResult): Recommendation[] {
       code: 'User-agent: unwanted-bot\nDisallow: /\n\nUser-agent: GPTBot\nAllow: /',
     });
   }
-
   // Info: Some specific bots blocked
   else if (
     analysis.blockedBots.length > 0 &&
@@ -82,7 +79,6 @@ function getRecommendations(analysis: AnalysisResult): Recommendation[] {
         analysis.blockedBots.map((bot) => `# ${bot}`).join('\n'),
     });
   }
-
   // Success: No bots blocked or very few
   else if (analysis.blockedBots.length === 0) {
     recommendations.push({
@@ -160,45 +156,57 @@ function RecommendationCard({
   const IconComponent = config.icon;
 
   return (
-    <div className={`p-4 ${config.bg} border ${config.border} rounded-lg mb-3`}>
+    <article
+      className={`p-4 ${config.bg} border ${config.border} rounded-lg mb-3`}
+      aria-labelledby={`rec-${recommendation.id}-title`}
+    >
       <div className="flex items-start gap-3">
         <div className="flex-shrink-0 mt-0.5">
-          <IconComponent width={16} height={16} fill={config.iconColor} />
+          <IconComponent
+            width={16}
+            height={16}
+            fill={config.iconColor}
+            aria-hidden="true"
+          />
         </div>
         <div className="flex-1 min-w-0">
-          <div
+          <h4
+            id={`rec-${recommendation.id}-title`}
             className={`font-mono text-sm font-semibold mb-2 ${config.titleColor}`}
           >
             {recommendation.title}
-          </div>
-          <div className="text-[#888] font-mono text-xs mb-3 leading-relaxed">
+          </h4>
+          <p className="text-[#888] font-mono text-xs mb-3 leading-relaxed">
             {recommendation.description}
-          </div>
-
+          </p>
           {recommendation.action && (
             <div className="mb-3">
-              <div className="text-[#D9D9D9] font-mono text-xs font-semibold mb-1">
+              <h5 className="text-[#D9D9D9] font-mono text-xs font-semibold mb-1">
                 RECOMMENDED ACTION:
-              </div>
-              <div className="text-[#888] font-mono text-xs">
+              </h5>
+              <p className="text-[#888] font-mono text-xs">
                 {recommendation.action}
-              </div>
+              </p>
             </div>
           )}
-
           {recommendation.code && (
             <div>
-              <div className="text-[#D9D9D9] font-mono text-xs font-semibold mb-1">
+              <h5 className="text-[#D9D9D9] font-mono text-xs font-semibold mb-1">
                 EXAMPLE CODE:
-              </div>
-              <div className="bg-[#0A0A0A] border border-[#1a1a1a] rounded p-2 font-mono text-xs text-[#888] whitespace-pre-wrap overflow-x-auto">
+              </h5>
+              <pre
+                className="bg-[#0A0A0A] border border-[#1a1a1a] rounded p-2 font-mono text-xs text-[#888] whitespace-pre-wrap overflow-x-auto"
+                tabIndex={0}
+                role="region"
+                aria-label="Code example"
+              >
                 {recommendation.code}
-              </div>
+              </pre>
             </div>
           )}
         </div>
       </div>
-    </div>
+    </article>
   );
 }
 
@@ -231,24 +239,30 @@ function SummaryHeader({ analysis }: { analysis: AnalysisResult }) {
   }
 
   return (
-    <div className={`p-4 ${scoreBg} border ${scoreBorder} rounded-lg mb-4`}>
+    <header
+      className={`p-4 ${scoreBg} border ${scoreBorder} rounded-lg mb-4`}
+      aria-labelledby="accessibility-score-title"
+    >
       <div className="flex items-center justify-between">
         <div>
-          <div className="text-[#D9D9D9] font-mono text-sm font-semibold">
+          <h4
+            id="accessibility-score-title"
+            className="text-[#D9D9D9] font-mono text-sm font-semibold"
+          >
             AI Accessibility Score
-          </div>
-          <div className="text-[#888] font-mono text-xs mt-1">
+          </h4>
+          <p className="text-[#888] font-mono text-xs mt-1">
             Based on crawler access permissions
-          </div>
+          </p>
         </div>
-        <div className="text-right">
+        <div className="text-right" role="status" aria-live="polite">
           <div className={`font-mono text-2xl font-bold ${scoreColor}`}>
             {accessibilityScore}%
           </div>
           <div className={`font-mono text-xs ${scoreColor}`}>{scoreLabel}</div>
         </div>
       </div>
-    </div>
+    </header>
   );
 }
 
@@ -261,28 +275,38 @@ export default function RecommendationsDisplay({
   return (
     <div
       className={`recommendations-display max-h-[400px] overflow-y-auto ${className}`}
+      role="region"
+      aria-label="AI accessibility recommendations"
     >
       {/* Accessibility Score Summary */}
       <SummaryHeader analysis={analysis} />
 
       {/* Recommendations */}
-      <div className="space-y-0">
+      <div
+        className="space-y-0"
+        role="list"
+        aria-label={`${recommendations.length} recommendations`}
+      >
         {recommendations.map((recommendation) => (
-          <RecommendationCard
-            key={recommendation.id}
-            recommendation={recommendation}
-          />
+          <div key={recommendation.id} role="listitem">
+            <RecommendationCard recommendation={recommendation} />
+          </div>
         ))}
       </div>
 
       {/* Footer note */}
-      <div className="mt-4 p-3 bg-[#1a1a1a] border border-[#2a2a2a] rounded-lg">
+      <footer className="mt-4 p-3 bg-[#1a1a1a] border border-[#2a2a2a] rounded-lg">
         <div className="flex items-center justify-center gap-2 text-[#888] font-mono text-xs">
-          <IconLightbulb width={14} height={14} fill="#888" />
+          <IconLightbulb
+            width={14}
+            height={14}
+            fill="#888"
+            aria-hidden="true"
+          />
           Always test robots.txt changes and monitor crawl patterns after
           implementation
         </div>
-      </div>
+      </footer>
     </div>
   );
 }

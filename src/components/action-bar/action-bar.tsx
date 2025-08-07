@@ -13,7 +13,11 @@ export default function ActionBar({
   startDisabled = false,
 }: ActionBarProps) {
   return (
-    <div className="flex gap-2 justify-end">
+    <div
+      className="flex gap-2 justify-end"
+      role="group"
+      aria-label="Cancel and Start Buttons"
+    >
       <Button variant="secondary" onClick={onCancel}>
         Cancel
       </Button>

@@ -1,3 +1,4 @@
+// NavButtons.tsx
 import { ViewType } from '@/contexts/analysis-context';
 import React from 'react';
 
@@ -13,6 +14,7 @@ interface NavButtonProps {
   onClick?: () => void;
   disabled?: boolean;
   active?: boolean;
+  'aria-label'?: string;
 }
 
 function NavButton({
@@ -20,6 +22,7 @@ function NavButton({
   onClick,
   disabled = false,
   active = false,
+  'aria-label': ariaLabel,
 }: NavButtonProps) {
   return (
     <button
@@ -29,6 +32,8 @@ function NavButton({
         active ? 'bg-white/10 px-2 py-1 -mx-1 -my-1' : ''
       }`}
       type="button"
+      aria-current={active ? 'page' : undefined}
+      aria-label={ariaLabel}
     >
       {children}
     </button>
@@ -42,7 +47,11 @@ export default function NavButtons({
   hasAnalysisResult,
 }: NavButtonsProps) {
   return (
-    <div className={`flex gap-4 ${className}`}>
+    <nav
+      className={`flex gap-4 ${className}`}
+      role="navigation"
+      aria-label="Main navigation"
+    >
       <NavButton
         onClick={() => onViewChange('home')}
         active={currentView === 'home'}
@@ -53,9 +62,14 @@ export default function NavButtons({
         onClick={() => onViewChange('recommendations')}
         disabled={!hasAnalysisResult}
         active={currentView === 'recommendations'}
+        aria-label={
+          !hasAnalysisResult
+            ? 'Recommendations (requires completed analysis)'
+            : undefined
+        }
       >
         Recommendations
       </NavButton>
-    </div>
+    </nav>
   );
 }

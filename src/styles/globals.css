@@ -17,6 +17,22 @@ html {
   --foreground: #0f0f0f;
 }
 
+/* ========================================
+   ACCESSIBILITY UTILITIES
+======================================== */
+/* Screen reader only content */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);

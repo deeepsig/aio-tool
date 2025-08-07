@@ -57,6 +57,24 @@ export default function ProcessCard({
     }
   };
 
+  // Get status description for screen readers
+  const getStatusDescription = () => {
+    switch (step.status) {
+      case 'fetching':
+        return 'In progress - fetching data';
+      case 'analyzing':
+        return 'In progress - analyzing data';
+      case 'completed':
+        return 'Completed successfully';
+      case 'error':
+        return 'Error occurred';
+      default:
+        return 'Pending';
+    }
+  };
+
+  const contentId = `process-content-${step.id}`;
+
   return (
     <div
       className={`process-card-glow w-full ${isExpanded ? 'process-card-expanded' : 'process-card-collapsed'} ${className}`}
@@ -64,11 +82,23 @@ export default function ProcessCard({
       <div
         className="process-card-header flex w-full items-center justify-between px-4 py-2"
         onClick={toggleExpanded}
+        role="button"
+        tabIndex={0}
+        aria-expanded={isExpanded}
+        aria-controls={contentId}
+        onKeyDown={(e) => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            toggleExpanded();
+          }
+        }}
+        aria-label={`${step.title} - ${getStatusDescription()}. Click to ${isExpanded ? 'collapse' : 'expand'} details.`}
       >
         <div className="flex items-center gap-3">
           <IconComponent
             className={`w-4 h-4 icon ${getIconAnimationClass()}`}
             fill={statusConfig.iconColor}
+            aria-hidden="true"
           />
           <span className="text-[#D9D9D9] text-sm font-medium">
             {step.title}
@@ -76,17 +106,24 @@ export default function ProcessCard({
           <StatusBadge status={step.status} />
         </div>
         <div className="flex items-center">
-          <button className="flex items-center justify-center">
+          <button
+            className="flex items-center justify-center"
+            type="button"
+            aria-hidden="true"
+            tabIndex={-1}
+          >
             <IconCaretDown
               className={`w-4 h-4 transition-transform duration-200 ${
                 isExpanded ? 'rotate-180' : ''
               }`}
               fill="#696969"
+              aria-hidden="true"
             />
           </button>
         </div>
       </div>
       <CollapsibleContent
+        id={contentId}
         isExpanded={isExpanded}
         content={step.content || getFallbackContent()}
         error={step.error}

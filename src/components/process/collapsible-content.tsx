@@ -5,6 +5,7 @@ import AiBotAnalysisDisplay from './ai-bot-analysis-display';
 import { AnalysisResult } from '@/utils/process-helpers';
 
 interface CollapsibleContentProps {
+  id?: string;
   isExpanded: boolean;
   content: string;
   error?: string;
@@ -14,6 +15,7 @@ interface CollapsibleContentProps {
 }
 
 export default function CollapsibleContent({
+  id,
   isExpanded,
   content,
   error,
@@ -22,20 +24,20 @@ export default function CollapsibleContent({
   analysisResult,
 }: CollapsibleContentProps) {
   const displayContent = error || content;
-
   // Check if this is the robots.txt fetch step and we have successful content
   const isRobotsTxtStep = stepId === 'fetch-robots';
   const shouldShowRobotsDisplay = isRobotsTxtStep && !error && content;
-
   // Check if this is the AI bot analysis step and we have results
   const isAnalysisStep = stepId === 'analyze-robots';
   const shouldShowAnalysisDisplay = isAnalysisStep && !error && analysisResult;
 
   return (
     <div
+      id={id}
       className={`overflow-hidden transition-all duration-300 ease-in-out ${
         isExpanded ? 'max-h-[500px] opacity-100' : 'max-h-0 opacity-0'
       } ${className}`}
+      aria-hidden={!isExpanded}
     >
       <div
         className="px-4 pb-4 pt-2"
@@ -48,6 +50,8 @@ export default function CollapsibleContent({
         ) : (
           <div
             className={`content-display text-xs font-mono ${error ? 'text-red-400' : ''}`}
+            role={error ? 'alert' : 'status'}
+            aria-live={error ? 'assertive' : 'polite'}
           >
             {displayContent}
           </div>
