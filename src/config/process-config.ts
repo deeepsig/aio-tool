@@ -9,12 +9,14 @@ export const PROCESS_STEPS: Record<
 > = {
   FETCH_ROBOTS: {
     id: 'fetch-robots',
-    title: 'Fetch robots.txt',
+    title: 'Fetch',
+    titleSecondary: 'robots.txt',
     defaultExpanded: false,
   },
   ANALYZE_ROBOTS: {
     id: 'analyze-robots',
-    title: 'Analyze blocked bots',
+    title: 'Analyze',
+    titleSecondary: 'blocked bots',
     defaultExpanded: false,
   },
 };

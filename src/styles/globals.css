@@ -1,15 +1,6 @@
 @import 'tailwindcss';
 
 /* ========================================
-   TODO: TEMPORARY 90% SIZE REDUCTION
-   Remove this section when normal sizing is needed
-======================================== */
-/* Global 90% scale reduction for all content */
-html {
-  transform: scale(0.9);
-}
-
-/* ========================================
    CSS VARIABLES & THEME
 ======================================== */
 :root {
@@ -89,31 +80,32 @@ body {
 /* ========================================
    CARD COMPONENTS
 ======================================== */
-/* Main container card with ambient glow */
+/* Main container card with improved shadow */
 .outer-box {
   background: #1a1a1a;
   border: 1px solid #282828;
   box-shadow:
-    0px 4px 8px rgba(0, 0, 0, 0.25),
-    0 0 16px rgba(0, 0, 0, 0.2),
-    inset 0 1px 0 rgba(255, 255, 255, 0.03);
-  width: 498px;
+    0px 2px 6px rgba(0, 0, 0, 0.2),
+    0 0 12px rgba(0, 0, 0, 0.1),
+    0 0 0 1px rgba(255, 255, 255, 0.02),
+    inset 0 1px 0 rgba(255, 255, 255, 0.04);
+  width: 512px;
   margin: 0 auto;
-  padding: 14px 16px;
-  border-radius: 16px;
+  padding: 14px 0px;
+  border-radius: 6px;
 }
 
 /* Inner content card with subtle depth */
 .inner-box {
-  background: #1f1f1f;
-  border: 1px solid #252525;
+  background: #1a1a1a;
+  border-top: 1px solid #252525;
+  border-bottom: 1px solid #252525;
   box-shadow:
     1px 1px 2px rgba(0, 0, 0, 0.1),
     -1px -1px 2px rgba(0, 0, 0, 0.1),
     0 0 8px rgba(0, 0, 0, 0.15);
   width: 100%;
   padding: 14px 16px;
-  border-radius: 14px;
 }
 
 /* ========================================
@@ -123,9 +115,9 @@ body {
 .input {
   width: 100%;
   padding: 8px 16px;
-  background: #171717;
+  background: #161616;
   border: 1px solid #242424;
-  border-radius: 8px;
+  border-radius: 4px;
   font-size: 16px;
   color: #c0c0c0;
   box-shadow:
@@ -195,19 +187,19 @@ body {
 ======================================== */
 /* Main process card container - no hover effects */
 .process-card-glow {
-  background: #282828;
+  background: #212121;
   box-shadow:
     0 0 4px rgba(0, 0, 0, 0.12),
     inset 0 1px 0 rgba(255, 255, 255, 0.02);
-  border-radius: 8px;
+  border-radius: 4px;
   /* Remove cursor and transition from main container */
 }
 
 /* Clickable header area - only this should highlight */
 .process-card-header {
   cursor: pointer;
-  transition: all 0.2s ease;
-  border-radius: 8px 8px 0 0; /* Round only top corners */
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  border-radius: 8px 8px 0 0;
 }
 
 .process-card-header:hover {
@@ -221,14 +213,14 @@ body {
 
 /* When collapsed, header should have full border radius */
 .process-card-collapsed .process-card-header {
-  border-radius: 8px;
+  border-radius: 4px;
 }
 
 .content-display {
   padding: 12px 16px;
-  background: #171717;
+  background: #161616;
   border: 1px solid #242424;
-  border-radius: 8px;
+  border-radius: 4px;
   max-height: 128px;
   overflow-y: auto;
   color: #444444;
@@ -246,10 +238,9 @@ body {
 ======================================== */
 .robots-txt-display {
   padding: 12px 16px;
-  background: #171717;
-  border: 1px solid #242424;
+  background: #161616;
   max-height: 200px;
-  border-radius: 8px;
+  border-radius: 2px;
   box-shadow:
     0 1px 3px rgba(0, 0, 0, 0.12),
     0 0 4px rgba(0, 0, 0, 0.08);
@@ -281,10 +272,9 @@ body {
 ======================================== */
 .ai-bot-analysis-display {
   padding: 12px 16px;
-  background: #171717;
-  border: 1px solid #242424;
+  background: #161616;
   max-height: 200px;
-  border-radius: 8px;
+  border-radius: 2px;
   box-shadow:
     0 1px 3px rgba(0, 0, 0, 0.12),
     0 0 4px rgba(0, 0, 0, 0.08);
@@ -316,9 +306,9 @@ body {
 ======================================== */
 .recommendations-display {
   padding: 12px 16px;
-  background: #171717;
+  background: #161616;
   border: 1px solid #242424;
-  border-radius: 8px;
+  border-radius: 4px;
   box-shadow:
     0 1px 3px rgba(0, 0, 0, 0.12),
     0 0 4px rgba(0, 0, 0, 0.08);

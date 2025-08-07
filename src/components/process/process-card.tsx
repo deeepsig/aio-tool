@@ -102,6 +102,12 @@ export default function ProcessCard({
           />
           <span className="text-[#D9D9D9] text-sm font-medium">
             {step.title}
+            {step.titleSecondary && (
+              <span className="text-[#c0c0c0]/75 font-light">
+                {' '}
+                {step.titleSecondary}
+              </span>
+            )}
           </span>
           <StatusBadge status={step.status} />
         </div>

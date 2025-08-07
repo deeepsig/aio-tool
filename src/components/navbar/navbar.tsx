@@ -1,6 +1,6 @@
 import React from 'react';
 import NavButtons from './nav-buttons';
-import MenuButton from '../ui/buttons/button-menu';
+// import MenuButton from '../ui/buttons/button-menu';
 import { useAnalysis } from '@/contexts/analysis-context';
 
 interface NavbarProps {
@@ -8,19 +8,19 @@ interface NavbarProps {
   className?: string;
 }
 
-export default function Navbar({ onMenuClick, className = '' }: NavbarProps) {
+export default function Navbar({ className = '' }: NavbarProps) {
   const { currentView, setCurrentView, hasAnalysisResult } = useAnalysis();
 
   return (
     <header
-      className={`flex items-center justify-between w-full px-2 ${className}`}
+      className={`flex items-center justify-between w-full px-4 ${className}`}
     >
       <NavButtons
         currentView={currentView}
         onViewChange={setCurrentView}
         hasAnalysisResult={hasAnalysisResult}
       />
-      <MenuButton onClick={onMenuClick} />
+      {/* <MenuButton onClick={onMenuClick} /> */}
     </header>
   );
 }

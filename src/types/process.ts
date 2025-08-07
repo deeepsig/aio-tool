@@ -4,6 +4,7 @@ import { AnalysisResult } from '@/utils/process-helpers';
 export interface ProcessStep {
   id: string;
   title: string;
+  titleSecondary?: string;
   status: 'fetching' | 'analyzing' | 'completed' | 'error';
   content?: string;
   error?: string;
