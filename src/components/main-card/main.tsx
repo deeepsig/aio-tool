@@ -50,7 +50,6 @@ export default function Main() {
   useEffect(() => {
     if (robotsError) {
       console.error('Failed to fetch robots.txt:', robotsError);
-      // You could also update your steps to show an error state
       setAnalysisResult(null);
     }
   }, [robotsError, setAnalysisResult]);
@@ -86,6 +85,14 @@ export default function Main() {
 
   const handleBlur = useCallback(() => setTouched(true), []);
 
+  // Screen reader announcement for status changes
+  const getStatusAnnouncement = () => {
+    if (isAnalyzing) return 'Analysis in progress';
+    if (robotsError) return 'Analysis failed';
+    if (analysisResult) return 'Analysis completed';
+    return '';
+  };
+
   const renderHomeView = () => (
     <>
       <UrlInput
@@ -116,6 +123,11 @@ export default function Main() {
 
   return (
     <div className="inner-box space-y-[14px]">
+      {/* Screen reader only status announcements */}
+      <div aria-live="polite" aria-atomic="true" className="sr-only">
+        {getStatusAnnouncement()}
+      </div>
+
       {currentView === 'home' && renderHomeView()}
       {currentView === 'recommendations' && renderRecommendationsView()}
     </div>
