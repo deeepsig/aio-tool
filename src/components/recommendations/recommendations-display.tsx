@@ -6,7 +6,7 @@ import {
   ScoreDisplay,
   RecommendationSection,
   RecommendationItem,
-} from '../process/common/display-components';
+} from '../display/display-components';
 
 interface RecommendationsDisplayProps {
   analysis: AnalysisResult;

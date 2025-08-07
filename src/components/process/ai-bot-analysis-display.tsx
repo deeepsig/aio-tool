@@ -5,7 +5,7 @@ import {
   Section,
   EmptyState,
   DisplayContainer,
-} from './common/display-components';
+} from '../display/display-components';
 
 interface AiBotAnalysisDisplayProps {
   analysis: AnalysisResult;
