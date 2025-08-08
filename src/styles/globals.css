@@ -29,6 +29,7 @@
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+  --font-vt323: var(--font-vt323);
 }
 
 /* Dark mode theme variables */
@@ -43,7 +44,7 @@
    GLOBAL STYLES & SCROLLBARS
 ======================================== */
 body {
-  background: var(--background);
+  background: #0a0a0a;
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
