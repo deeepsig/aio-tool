@@ -27,7 +27,7 @@ export const metadata: Metadata = {
     title: 'Is your site still relevant??',
     description:
       'Analyze and optimize your robots.txt file for AI crawlers. Check if your website is properly configured for AI-driven search engines and digital assistants.',
-    url: 'https://robot.deeepsig.me',
+    url: 'https://robots.deeepsig.me',
     siteName: 'Optimize robots.txt',
     images: [
       {
