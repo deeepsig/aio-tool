@@ -30,6 +30,8 @@ export default function ProcessCard({
     }
   }, [step.status]);
 
+  // TODO: Move to a config
+
   // Get fallback content based on status
   const getFallbackContent = () => {
     switch (step.status) {
