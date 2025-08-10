@@ -102,32 +102,35 @@ export default function Main() {
   };
 
   const renderHomeView = () => (
-    <>
+    <div className="space-y-[14px]">
+      {/* URL Input Form Section */}
       <form onSubmit={handleFormSubmit}>
-        <div className="space-y-[14px]">
-          <UrlInput
-            url={url}
-            onChange={setUrl}
-            onBlur={handleBlur}
-            error={
-              errorMessage ||
-              (robotsError
-                ? 'Failed to fetch robots.txt. Please try again.'
-                : undefined)
-            }
-          />
-          <div className="flex justify-end">
-            <ActionBar
-              onCancel={handleCancel}
-              onStartAnalysis={handleStartAnalysis}
-              startDisabled={!canAnalyze || isAnalyzing}
-              isProcessing={isAnalyzing}
-            />
-          </div>
-        </div>
+        <UrlInput
+          url={url}
+          onChange={setUrl}
+          onBlur={handleBlur}
+          error={
+            errorMessage ||
+            (robotsError
+              ? 'Failed to fetch robots.txt. Please try again.'
+              : undefined)
+          }
+        />
       </form>
+
+      {/* Process Panel (Visually in center, semantically separate) */}
       <ProcessPanel steps={steps} />
-    </>
+
+      {/* Action Bar (Visually at bottom, functionally linked to form) */}
+      <div className="flex justify-end">
+        <ActionBar
+          onCancel={handleCancel}
+          onStartAnalysis={handleStartAnalysis}
+          startDisabled={!canAnalyze || isAnalyzing}
+          isProcessing={isAnalyzing}
+        />
+      </div>
+    </div>
   );
 
   const renderRecommendationsView = () => (
