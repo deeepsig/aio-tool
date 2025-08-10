@@ -1,3 +1,4 @@
+// src/components/ui/status/status-badge.tsx
 import React from 'react';
 import { ProcessStatus } from '@/types/process';
 import { STATUS_CONFIG } from '@/config/process-config';
@@ -15,11 +16,13 @@ export default function StatusBadge({
 
   return (
     <span
-      className={`inline-flex items-center px-3 py-1 rounded-full text-xs font-medium ${className}`}
+      className={`inline-flex items-center px-3 py-1 rounded-full text-xs font-medium select-none pointer-events-none ${className}`}
       style={{
         backgroundColor: config.badge.bg,
         color: config.badge.text,
       }}
+      role="status"
+      aria-label={`Status: ${config.label}`}
     >
       {config.label}
     </span>
