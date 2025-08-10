@@ -5,7 +5,7 @@ interface ActionBarProps {
   onCancel?: () => void;
   onStartAnalysis?: () => void;
   startDisabled?: boolean;
-  isProcessing?: boolean; // New prop to sync with parent state
+  isProcessing?: boolean;
 }
 
 export default function ActionBar({
