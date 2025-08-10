@@ -30,8 +30,6 @@ export default function ProcessCard({
     }
   }, [step.status]);
 
-  // TODO: Move to a config
-
   // Get fallback content based on status
   const getFallbackContent = () => {
     switch (step.status) {
@@ -40,7 +38,7 @@ export default function ProcessCard({
       case 'analyzing':
         return 'Analyzing...';
       default:
-        return 'deeeps needs moneyy..and friends';
+        return 'Process pending...';
     }
   };
 
@@ -75,13 +73,21 @@ export default function ProcessCard({
     }
   };
 
+  // Handle keyboard navigation
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      toggleExpanded();
+    }
+  };
+
   const contentId = `process-content-${step.id}`;
 
   return (
     <div
       className={`process-card-container w-full ${isExpanded ? 'process-card-expanded' : 'process-card-collapsed'} ${className}`}
     >
-      {/* Clickable header area - only this should highlight (process-card-header)*/}
+      {/* Clickable header area - interactive process indicator */}
       <div
         className="process-card-header flex w-full items-center justify-between px-4 py-2"
         onClick={toggleExpanded}
@@ -89,13 +95,12 @@ export default function ProcessCard({
         tabIndex={0}
         aria-expanded={isExpanded}
         aria-controls={contentId}
-        onKeyDown={(e) => {
-          if (e.key === 'Enter' || e.key === ' ') {
-            e.preventDefault();
-            toggleExpanded();
-          }
-        }}
+        onKeyDown={handleKeyDown}
         aria-label={`${step.title} - ${getStatusDescription()}. Click to ${isExpanded ? 'collapse' : 'expand'} details.`}
+        style={{
+          userSelect: 'none', // Disable text selection on interactive header
+          cursor: 'pointer',
+        }}
       >
         <div className="flex items-center gap-3">
           <IconComponent
@@ -103,24 +108,29 @@ export default function ProcessCard({
             fill={statusConfig.iconColor}
             aria-hidden="true"
           />
-          <span className="text-[#D9D9D9] text-sm font-medium">
+          <span
+            className="text-[#D9D9D9] text-sm font-medium"
+            style={{ userSelect: 'none' }} // Process title shouldn't be selectable
+          >
             {step.title}
             {step.titleSecondary && (
-              <span className="text-[#c0c0c0]/75 font-light">
+              <span
+                className="text-[#c0c0c0]/75 font-light"
+                style={{ userSelect: 'none' }}
+              >
                 {' '}
                 {step.titleSecondary}
               </span>
             )}
           </span>
-          <StatusBadge status={step.status} />
+          <div className="pointer-events-none">
+            {/* Prevent badge from hijacking events */}
+            <StatusBadge status={step.status} />
+          </div>
         </div>
         <div className="flex items-center">
-          <button
-            className="flex items-center justify-center"
-            type="button"
-            aria-hidden="true"
-            tabIndex={-1}
-          >
+          <div className="flex items-center justify-center p-1 pointer-events-none">
+            {/* Decorative caret shouldn't hijack events */}
             <IconCaretDown
               className={`w-4 h-4 transition-transform duration-200 ${
                 isExpanded ? 'rotate-180' : ''
@@ -128,7 +138,7 @@ export default function ProcessCard({
               fill="#696969"
               aria-hidden="true"
             />
-          </button>
+          </div>
         </div>
       </div>
       <CollapsibleContent

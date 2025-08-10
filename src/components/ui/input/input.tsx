@@ -1,4 +1,5 @@
 import React from 'react';
+
 interface InputProps {
   id?: string;
   value: string;
@@ -9,7 +10,12 @@ interface InputProps {
   'aria-labelledby'?: string;
   'aria-describedby'?: string;
   'aria-invalid'?: boolean;
+  autoComplete?: string;
+  spellCheck?: boolean;
+  autoCorrect?: string;
+  autoCapitalize?: string;
 }
+
 export default function Input({
   id,
   value,
@@ -20,7 +26,23 @@ export default function Input({
   'aria-labelledby': ariaLabelledBy,
   'aria-describedby': ariaDescribedBy,
   'aria-invalid': ariaInvalid,
+  autoComplete = 'off',
+  spellCheck = false,
+  autoCorrect = 'off',
+  autoCapitalize = 'off',
 }: InputProps) {
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    // Enable form submission by pressing Enter (when wrapped in a form)
+    if (e.key === 'Enter') {
+      const form = (e.target as HTMLInputElement).form;
+      if (form) {
+        form.dispatchEvent(
+          new Event('submit', { bubbles: true, cancelable: true })
+        );
+      }
+    }
+  };
+
   return (
     <input
       id={id}
@@ -28,12 +50,19 @@ export default function Input({
       value={value}
       onChange={(e) => onChange(e.target.value)}
       onBlur={onBlur}
+      onKeyDown={handleKeyDown}
       placeholder={placeholder}
       className={`input ${className}`}
       aria-labelledby={ariaLabelledBy}
       aria-describedby={ariaDescribedBy}
       aria-invalid={ariaInvalid}
-      autoComplete="off"
+      autoComplete={autoComplete}
+      spellCheck={spellCheck}
+      autoCorrect={autoCorrect}
+      autoCapitalize={autoCapitalize}
+      style={{
+        WebkitTextSizeAdjust: '100%', // Prevent text resizing on iOS landscape
+      }}
     />
   );
 }

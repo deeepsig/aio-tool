@@ -140,5 +140,6 @@ This app can be essentialy divided into two kinds: UI only components and the co
 - Vercel
 - John Pham
 - Mariana Castilho
+- Rauno!!
 
 There are more which I'll update later.
