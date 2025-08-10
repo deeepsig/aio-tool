@@ -85,6 +85,14 @@ export default function Main() {
 
   const handleBlur = useCallback(() => setTouched(true), []);
 
+  // Handle form submission (enables Enter key submission)
+  const handleFormSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (canAnalyze && !isAnalyzing) {
+      handleStartAnalysis();
+    }
+  };
+
   // Screen reader announcement for status changes
   const getStatusAnnouncement = () => {
     if (isAnalyzing) return 'Analysis in progress';
@@ -94,27 +102,30 @@ export default function Main() {
   };
 
   const renderHomeView = () => (
-    <>
-      <UrlInput
-        url={url}
-        onChange={setUrl}
-        onBlur={handleBlur}
-        error={
-          errorMessage ||
-          (robotsError
-            ? 'Failed to fetch robots.txt. Please try again.'
-            : undefined)
-        }
-      />
-      <ProcessPanel steps={steps} />
-      <div className="flex justify-end">
-        <ActionBar
-          onCancel={handleCancel}
-          onStartAnalysis={handleStartAnalysis}
-          startDisabled={!canAnalyze || isAnalyzing}
+    <form onSubmit={handleFormSubmit}>
+      <div className="space-y-[14px]">
+        <UrlInput
+          url={url}
+          onChange={setUrl}
+          onBlur={handleBlur}
+          error={
+            errorMessage ||
+            (robotsError
+              ? 'Failed to fetch robots.txt. Please try again.'
+              : undefined)
+          }
         />
+        <ProcessPanel steps={steps} />
+        <div className="flex justify-end">
+          <ActionBar
+            onCancel={handleCancel}
+            onStartAnalysis={handleStartAnalysis}
+            startDisabled={!canAnalyze || isAnalyzing}
+            isProcessing={isAnalyzing}
+          />
+        </div>
       </div>
-    </>
+    </form>
   );
 
   const renderRecommendationsView = () => (
